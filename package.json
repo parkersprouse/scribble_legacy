@@ -1,0 +1,28 @@
+{
+  "name": "scribble-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "cd client && npm run build && cd .. && node server",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkersprouse/scribble.git"
+  },
+  "author": "Parker Sprouse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parkersprouse/scribble/issues"
+  },
+  "homepage": "https://github.com/parkersprouse/scribble#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "morgan": "^1.9.0"
+  }
+}
