@@ -2,7 +2,7 @@
 'use strict';
 
 const body_parser = require('body-parser');
-//const endpoints = require('./endpoints');
+const endpoints = require('./endpoints');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -23,7 +23,7 @@ app.use(body_parser.urlencoded({ extended: false }));
 app.use(helmet());
 
 // Setup our endpoints under the /api route
-//app.use('/api', endpoints);
+app.use('/api', endpoints);
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
