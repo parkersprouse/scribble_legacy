@@ -33,4 +33,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
 });
 
+// Database setup - hard wipe and recreation
+//require('./config/setup_db')();
+
 module.exports = app;
