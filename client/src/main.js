@@ -4,7 +4,8 @@ import 'buefy/lib/buefy.css';
 
 import App from './App.vue';
 import router from './router';
-import './assets/styles.scss';
+import './assets/styles/styles.scss';
+import './assets/styles/materialdesignicons.min.css';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
