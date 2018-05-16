@@ -2,3 +2,43 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media screen and (min-width: 769px) {
+  %separator {
+    border-right: 1px solid black;
+  }
+
+  .is-separated, .message.is-dark .is-separated {
+    @extend %separator;
+  }
+
+  .message .is-separated {
+    @extend %separator;
+    border-color: #dbdbdb;
+  }
+
+  .message.is-danger .is-separated {
+    @extend %separator;
+    border-color: #ff3860;
+  }
+
+  .message.is-info .is-separated {
+    @extend %separator;
+    border-color: #167df0;
+  }
+
+  .message.is-warning .is-separated {
+    @extend %separator;
+    border-color: #ffdd57;
+  }
+
+  .message.is-success .is-separated {
+    @extend %separator;
+    border-color: #23d160;
+  }
+
+  .message.is-primary .is-separated {
+    @extend %separator;
+    border-color: #7957d5;
+  }
+}

@@ -23,20 +23,24 @@
           </div>
         </article>
 
-        <div class='columns is-centered'>
-          <div class='column'>
-            <div class='three-quarters-width'>
-              <h3>Login</h3>
-              <login-form />
+        <article class='message is-medium'>
+          <div class='message-body'>
+            <div class='columns is-centered'>
+              <div class='column is-separated'>
+                <div class='three-quarters-width'>
+                  <h3>Login</h3>
+                  <login-form />
+                </div>
+              </div>
+              <div class='column'>
+                <div class='three-quarters-width'>
+                  <h3>Register</h3>
+                  <register-form />
+                </div>
+              </div>
             </div>
           </div>
-          <div class='column'>
-            <div class='three-quarters-width'>
-              <h3>Register</h3>
-              <register-form />
-            </div>
-          </div>
-        </div>
+        </article>
 
       </div>
     </div>
