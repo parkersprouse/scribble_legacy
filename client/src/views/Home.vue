@@ -2,8 +2,8 @@
   <div>
     <section class='hero is-medium is-dark is-bold' style='margin-bottom: 1rem;'>
       <div class='hero-body'>
-        <div class='container'>
-          <h1 class='title'>
+        <div class='container has-text-centered'>
+          <h1 class='title' style='font-size: 3rem;'>
             Scribble
           </h1>
           <h2 class='subtitle'>
