@@ -14,18 +14,27 @@
     </section>
     <div class='container'>
       <div class='content'>
+
         <article class='message is-dark is-medium'>
           <div class='message-body'>
-            <strong>Scribble</strong> is an online notepad and TODO list.
+            <div>
+              <strong>Scribble</strong> is an online notepad and TODO list.
+            </div>
           </div>
         </article>
 
         <div class='columns is-centered'>
           <div class='column'>
-            <login-form />
+            <div class='three-quarters-width'>
+              <h3>Login</h3>
+              <login-form />
+            </div>
           </div>
           <div class='column'>
-            <register-form />
+            <div class='three-quarters-width'>
+              <h3>Register</h3>
+              <register-form />
+            </div>
           </div>
         </div>
 
@@ -46,3 +55,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media screen and (min-width: 1024px) {
+  .three-quarters-width {
+    width: 75%;
+    max-width: 75%;
+    margin: auto;
+  }
+}
+</style>

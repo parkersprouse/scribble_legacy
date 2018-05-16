@@ -6,14 +6,14 @@
         <div class='field'>
           <label class='label'>E-mail</label>
           <p class='control has-icons-left'>
-            <input class='input' type='email' placeholder='E-mail' v-model='email'>
+            <input class='input' type='email' placeholder='E-mail' v-model='email' />
             <b-icon icon='account' size='is-small'></b-icon>
           </p>
         </div>
         <div class='field'>
           <label class='label'>Password</label>
           <p class='control has-icons-left'>
-            <input class='input' type='password' placeholder='Password' v-model='password'>
+            <input class='input' type='password' placeholder='Password' v-model='password' />
             <b-icon icon='lock' size='is-small'></b-icon>
           </p>
         </div>
@@ -27,7 +27,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
