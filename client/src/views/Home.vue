@@ -17,9 +17,13 @@
 
         <article class='message is-dark is-medium'>
           <div class='message-body'>
-            <div>
-              <strong>Scribble</strong> is an online notepad and TODO list.
-            </div>
+            <p>
+              <strong>Scribble</strong> is an online notepad and to-do list.
+            </p>
+            <p>
+              Take quick notes to remember for later, whip up a quick to-do list
+              to check later, or whatever you may need.
+            </p>
           </div>
         </article>
 
@@ -44,6 +48,9 @@
 
       </div>
     </div>
+
+    <full-footer />
+
   </div>
 </template>
 
