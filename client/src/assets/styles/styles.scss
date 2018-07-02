@@ -1,6 +1,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Muli', sans-serif;
 }
 
 .footer {
@@ -45,5 +46,13 @@ body {
   .message.is-primary .is-separated {
     @extend %separator;
     border-color: #7957d5;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .three-quarters-width {
+    width: 75%;
+    max-width: 75%;
+    margin: auto;
   }
 }

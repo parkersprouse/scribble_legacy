@@ -1,6 +1,27 @@
 <template>
   <div>
     <section class='hero is-medium is-dark is-bold' style='margin-bottom: 1rem;'>
+      <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+          <div class="navbar-burger burger" :class="{ 'is-active': navbar_open }"
+               data-target="top-navbar" @click='toggleNavbar'>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div id="top-navbar" class="navbar-menu" :class="{ 'is-active': navbar_open }">
+          <div class="navbar-end">
+            <a class="navbar-item" href="#login">
+              Login
+            </a>
+            <a class="navbar-item" href="#register">
+              Register
+            </a>
+          </div>
+        </div>
+      </nav>
       <div class='hero-body'>
         <div class='container has-text-centered'>
           <h1 class='title' style='font-size: 3rem;'>
@@ -22,7 +43,7 @@
             </p>
             <p>
               Take quick notes to remember for later, whip up a quick to-do list
-              to check later, or whatever you may need.
+              to check later, etc.
             </p>
           </div>
         </article>
@@ -32,13 +53,13 @@
             <div class='columns is-centered'>
               <div class='column is-separated'>
                 <div class='three-quarters-width'>
-                  <h3>Login</h3>
+                  <h3 id='login'>Login</h3>
                   <login-form />
                 </div>
               </div>
               <div class='column'>
                 <div class='three-quarters-width'>
-                  <h3>Register</h3>
+                  <h3 id='register'>Register</h3>
                   <register-form />
                 </div>
               </div>
@@ -49,7 +70,7 @@
       </div>
     </div>
 
-    <full-footer />
+    <custom-footer />
 
   </div>
 </template>
@@ -64,15 +85,15 @@ export default {
     LoginForm,
     RegisterForm,
   },
+  data() {
+    return {
+      navbar_open: false,
+    };
+  },
+  methods: {
+    toggleNavbar() {
+      this.navbar_open = !this.navbar_open;
+    },
+  },
 };
 </script>
-
-<style scoped>
-@media screen and (min-width: 1024px) {
-  .three-quarters-width {
-    width: 75%;
-    max-width: 75%;
-    margin: auto;
-  }
-}
-</style>

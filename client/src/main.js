@@ -11,7 +11,7 @@ import './assets/styles/materialdesignicons.min.css';
 Vue.config.productionTip = false;
 Vue.use(Buefy);
 
-Vue.component('full-footer', Footer);
+Vue.component('custom-footer', Footer);
 
 new Vue({
   router,
