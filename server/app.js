@@ -24,7 +24,7 @@ app.use(body_parser.json());
 // Parse application/x-www-form-urlencoded
 app.use(body_parser.urlencoded({ extended: false }));
 
-// make the app use helmet to protect it from a number of vulnerabilities
+// Make the app use helmet to protect it from a number of vulnerabilities
 app.use(helmet());
 
 // Setup our endpoints under the /api route
@@ -33,7 +33,7 @@ app.use('/api', endpoints);
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
 
-// Always return the main index.html, so vue-router render the route in the client
+// Always return the main index.html, so vue-router renders the active route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'client', 'dist', 'index.html'));
 });

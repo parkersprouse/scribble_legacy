@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div v-if='error' class='message is-danger'>
       <div class='message-body'>
         <p>{{ error }}</p>
@@ -8,7 +9,6 @@
 
     <div class='card'>
       <div class='card-content'>
-
         <form @submit.prevent='onSubmit'>
           <div class='field'>
             <label class='label'>E-mail</label>
@@ -26,13 +26,14 @@
           </div>
           <div class='field'>
             <div class='control has-text-centered'>
-              <button class='button is-dark' type='submit'>Login</button>
+              <button class='button is-dark' :class="{ 'is-loading': submitting }"
+                      type='submit'>Login</button>
             </div>
           </div>
         </form>
-
       </div>
     </div>
+
   </div>
 </template>
 
@@ -41,28 +42,41 @@ import api from '@/lib/api';
 
 export default {
   name: 'login-form',
+  props: ['next'],
   data() {
     return {
       email: '',
-      error: 'Please fill out all required fields',
+      error: null,
       password: '',
+      submitting: false,
     };
   },
   methods: {
     onSubmit() {
+      this.resetErrors();
+      this.submitting = true;
       api.login({
         email: this.email,
         password: this.password,
       }, (success, response) => {
-        console.log(success + response);
+        if (success) {
+          window.location.href = this.next || '/dashboard';
+        }
+        else {
+          this.error = response.data.message;
+          this.submitting = false;
+        }
       });
+    },
+    resetErrors() {
+      this.error = null;
     },
   },
 };
 </script>
 
 <style scoped>
-  .message {
-    margin-bottom: 1rem;
-  }
+.message {
+  margin-bottom: 1rem;
+}
 </style>

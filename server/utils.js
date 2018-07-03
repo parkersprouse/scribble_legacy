@@ -3,11 +3,10 @@
 
 module.exports = {
 
-  generateJwtPayload: function(data) {
+  generateJwtPayload(data) {
     return {
       id: data.id,
       email: data.email,
-      username: data.username,
       name: data.name,
       pw_hash: data.pw_hash
     }

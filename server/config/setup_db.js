@@ -1,6 +1,5 @@
-/*
- * Running this function will drop and re-create all of the tables on the database.
- */
+// eslint-disable-next-line
+'use strict';
 
 const User = require('../models/user');
 
@@ -8,6 +7,8 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Running this function will drop and re-create all of the tables on the database.
+//
 // I feel dirty doing a forced "wait" between calls,
 // but these calls are async and the order they complete
 // cannot be guaranteed, which obviously casuses problems
