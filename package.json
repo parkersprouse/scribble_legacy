@@ -14,13 +14,16 @@
   },
   "author": "Parker Sprouse",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/parkersprouse/scribble/issues"
+  "engines": {
+    "node": "8.11.2",
+    "npm": "6.1.0"
   },
   "homepage": "https://github.com/parkersprouse/scribble#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "helmet": "^3.12.0",

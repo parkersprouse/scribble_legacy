@@ -2,6 +2,7 @@
 'use strict';
 
 const body_parser = require('body-parser');
+const cors = require('cors');
 const endpoints = require('./endpoints');
 const express = require('express');
 const helmet = require('helmet');
@@ -13,10 +14,14 @@ const app = express();
 // Setup logger
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
-// parse application/json
+// Allow CORS
+app.use(cors());
+app.options('*', cors()); // Pre-flight
+
+// Parse application/json
 app.use(body_parser.json());
 
-// parse application/x-www-form-urlencoded
+// Parse application/x-www-form-urlencoded
 app.use(body_parser.urlencoded({ extended: false }));
 
 // make the app use helmet to protect it from a number of vulnerabilities
