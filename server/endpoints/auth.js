@@ -41,8 +41,17 @@ module.exports = {
   },
 
   register(req, res, next) {
-    res.cookie('token', 'hello cookie', { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
-    respond(res, http_ok, 'Alls well that ends well');
+    const { confirm_password, email, name, password } = req.body;
+
+    if (!email || !password || !confirm_password)
+      respond(res, http_bad_request, 'Please make sure all required fields are filled out');
+    else if (!validator.isEmail(email))
+      respond(res, http_bad_request, 'Please make sure your e-mail is valid');
+    else if (password !== confirm_password)
+      respond(res, http_bad_request, 'Please make sure the passwords match');
+    else {
+      respond(res, http_ok, 'Alls well that ends well');
+    }
   }
 
 };
