@@ -54,6 +54,7 @@
 
 <script>
 import api from '@/lib/api';
+import Cookies from 'universal-cookie';
 
 export default {
   name: 'register-form',
@@ -78,7 +79,8 @@ export default {
         password: this.password,
       }, (success, response) => {
         if (success) {
-          console.log('success');
+          const cookies = new Cookies();
+          cookies.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
         } else {
           this.error = response.message;
           this.submitting = false;

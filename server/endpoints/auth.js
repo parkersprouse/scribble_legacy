@@ -9,7 +9,7 @@ const utils = require('../utils.js');
 const validator = require('validator');
 const User = require('../models/user');
 
-const { http_ok, http_bad_request, http_server_error } = constants;
+const { db_err_duplicate, http_ok, http_bad_request, http_server_error } = constants;
 
 module.exports = {
 
@@ -28,7 +28,6 @@ module.exports = {
             if (match) {
               const payload = utils.generateJwtPayload(data);
               const token = jwt.sign(payload, config.jwt_secret);
-              res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
               respond(res, http_ok, null, token);
             }
             else
@@ -52,7 +51,19 @@ module.exports = {
     else {
       const salt = bcrypt.genSaltSync();
       const pw_hash = bcrypt.hashSync(password, salt);
-      respond(res, http_ok, 'Alls well that ends well');
+
+      User.create({ name, email, pw_hash })
+        .then((data) => {
+          const payload = utils.generateJwtPayload(data);
+          const token = jwt.sign(payload, config.jwt_secret);
+          respond(res, http_ok, null, { data, token });
+        })
+        .catch((err) => {
+          let message = 'There was an unknown problem when creating your account';
+          if (err.name === db_err_duplicate)
+            message = 'An account with that e-mail address already exists';
+          respond(res, http_bad_request, message);
+        });
     }
   }
 

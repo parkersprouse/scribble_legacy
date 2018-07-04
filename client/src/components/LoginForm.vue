@@ -39,6 +39,7 @@
 
 <script>
 import api from '@/lib/api';
+import Cookies from 'universal-cookie';
 
 export default {
   name: 'login-form',
@@ -60,6 +61,8 @@ export default {
         password: this.password,
       }, (success, response) => {
         if (success) {
+          const cookies = new Cookies();
+          cookies.set('token', response.content, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
           window.location.href = this.next || '/dashboard';
         } else {
           this.error = response.message;
