@@ -14,7 +14,7 @@
             <label class='label'>E-mail</label>
             <p class='control has-icons-left'>
               <input class='input' type='email' placeholder='E-mail' v-model='email' />
-              <b-icon icon='account' size='is-small'></b-icon>
+              <b-icon icon='email' size='is-small'></b-icon>
             </p>
           </div>
           <div class='field'>
@@ -61,9 +61,8 @@ export default {
       }, (success, response) => {
         if (success) {
           window.location.href = this.next || '/dashboard';
-        }
-        else {
-          this.error = response.data.message;
+        } else {
+          this.error = response.message;
           this.submitting = false;
         }
       });

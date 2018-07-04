@@ -11,10 +11,17 @@
       <div class='card-content'>
         <form @submit.prevent='onSubmit'>
           <div class='field'>
+            <label class='label'>Name</label>
+            <p class='control has-icons-left'>
+              <input class='input' type='text' placeholder='Name' v-model='name' />
+              <b-icon icon='account' size='is-small'></b-icon>
+            </p>
+          </div>
+          <div class='field'>
             <label class='label'>E-mail</label>
             <p class='control has-icons-left'>
               <input class='input' type='email' placeholder='E-mail' v-model='email' />
-              <b-icon icon='account' size='is-small'></b-icon>
+              <b-icon icon='email' size='is-small'></b-icon>
             </p>
           </div>
           <div class='field'>
@@ -27,7 +34,8 @@
           <div class='field'>
             <label class='label'>Confirm Password</label>
             <p class='control has-icons-left'>
-              <input class='input' type='password' placeholder='Confirm Password' v-model='confirm_password' />
+              <input class='input' type='password' placeholder='Confirm Password'
+                     v-model='confirm_password' />
               <b-icon icon='lock' size='is-small'></b-icon>
             </p>
           </div>
@@ -45,6 +53,8 @@
 </template>
 
 <script>
+import api from '@/lib/api';
+
 export default {
   name: 'register-form',
   data() {
@@ -52,6 +62,7 @@ export default {
       confirm_password: '',
       email: '',
       error: null,
+      name: '',
       password: '',
       submitting: false,
     };
@@ -63,13 +74,13 @@ export default {
       api.register({
         confirm_password: this.confirm_password,
         email: this.email,
+        name: this.name,
         password: this.password,
       }, (success, response) => {
         if (success) {
-          
-        }
-        else {
-          this.error = response.data.message;
+          console.log('success');
+        } else {
+          this.error = response.message;
           this.submitting = false;
         }
       });

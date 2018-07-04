@@ -9,37 +9,40 @@ const utils = require('../utils.js');
 const validator = require('validator');
 const User = require('../models/user');
 
+const { http_ok, http_bad_request, http_server_error } = constants;
+
 module.exports = {
 
   login(req, res, next) {
     const { email, password } = req.body;
 
     if (!email || !password)
-      respond(res, constants.http_bad_request, 'Please make sure all required fields are filled out');
+      respond(res, http_bad_request, 'Please make sure all required fields are filled out');
     else
       User.findOne({ where: { email: { $iLike: email } } })
         .then((data) => {
           if (!data)
-            respond(res, constants.http_bad_request, 'Your e-mail or password was incorrect');
+            respond(res, http_bad_request, 'Your e-mail or password was incorrect');
           else {
             const match = bcrypt.compareSync(password, data.pw_hash);
             if (match) {
               const payload = utils.generateJwtPayload(data);
               const token = jwt.sign(payload, config.jwt_secret);
               res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
-              respond(res, constants.http_ok, null, token);
+              respond(res, http_ok, null, token);
             }
             else
-              respond(res, constants.http_bad_request, 'Your e-mail or password was incorrect');
+              respond(res, http_bad_request, 'Your e-mail or password was incorrect');
           }
         })
         .catch((err) => {
-          respond(res, constants.http_server_error, 'There was an unknown problem when trying to log you in');
+          respond(res, http_server_error, 'There was an unknown problem when trying to log you in');
         });
   },
 
   register(req, res, next) {
-    respond(res, constants.http_ok, 'Alls well that ends well');
+    res.cookie('token', 'hello cookie', { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false, secure: false });
+    respond(res, http_ok, 'Alls well that ends well');
   }
 
 };

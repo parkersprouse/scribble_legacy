@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: "off", no-unused-vars: "off" */
 
-const axios = require('axios');
-const constants = require('./constants');
+import axios from 'axios';
+import constants from './constants';
 
 function get(endpoint, callback) {
   axios.get(constants.server + endpoint)
@@ -54,7 +54,7 @@ function patch(endpoint, data, callback) {
     });
 }
 
-module.exports = {
+export default {
 
   // user auth
   login(data, callback) {
