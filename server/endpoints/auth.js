@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 'use strict';
 
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const config = require('../config');
 const constants = require('../config/constants');
 const jwt = require('jsonwebtoken');
@@ -50,6 +50,8 @@ module.exports = {
     else if (password !== confirm_password)
       respond(res, http_bad_request, 'Please make sure the passwords match');
     else {
+      const salt = bcrypt.genSaltSync();
+      const pw_hash = bcrypt.hashSync(password, salt);
       respond(res, http_ok, 'Alls well that ends well');
     }
   }
