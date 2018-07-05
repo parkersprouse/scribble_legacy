@@ -80,7 +80,7 @@ export default {
       }, (success, response) => {
         if (success) {
           const cookies = new Cookies();
-          cookies.set('token', response.content.token, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+          cookies.set('token', response.content.token, { maxAge: 60 * 60 * 24 * 7, httpOnly: false });
         } else {
           this.error = response.message;
           this.submitting = false;

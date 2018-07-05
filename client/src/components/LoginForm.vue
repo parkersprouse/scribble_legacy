@@ -62,7 +62,7 @@ export default {
       }, (success, response) => {
         if (success) {
           const cookies = new Cookies();
-          cookies.set('token', response.content, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: false });
+          cookies.set('token', response.content, { maxAge: 60 * 60 * 24 * 7, httpOnly: false });
           window.location.href = this.next || '/dashboard';
         } else {
           this.error = response.message;

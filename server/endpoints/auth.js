@@ -59,6 +59,7 @@ module.exports = {
           respond(res, http_ok, null, { data, token });
         })
         .catch((err) => {
+          console.log(err)
           let message = 'There was an unknown problem when creating your account';
           if (err.name === db_err_duplicate)
             message = 'An account with that e-mail address already exists';
