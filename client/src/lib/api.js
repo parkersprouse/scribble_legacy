@@ -57,12 +57,17 @@ function patch(endpoint, data, callback) {
 export default {
 
   // user auth
+
   login(data, callback) {
     post('/api/auth/login', data, callback);
   },
 
   register(data, callback) {
     post('/api/auth/register', data, callback);
+  },
+
+  verifyAuthToken(token, callback) {
+    post('/api/auth/verify_token', { token }, callback);
   },
 
 };

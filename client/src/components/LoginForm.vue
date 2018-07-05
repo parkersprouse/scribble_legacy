@@ -61,7 +61,7 @@ export default {
         password: this.password,
       }, (success, response) => {
         if (success) {
-          cookies.set('token', response.content, { maxAge: 60 * 60 * 24 * 7, httpOnly: false });
+          cookies.setToken(response.content, { maxAge: 60 * 60 * 24 * 7, httpOnly: false });
           window.location.href = this.next || '/dashboard';
         } else {
           this.error = response.message;

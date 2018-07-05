@@ -11,6 +11,16 @@ const User = require('../models/user');
 
 const { db_err_duplicate, http_ok, http_bad_request, http_server_error } = constants;
 
+function respond(res, status, message, content) {
+  res.status(status).json({ message, content });
+}
+
+function tokenValid(decoded, data) {
+  return (decoded.pw_hash === data.pw_hash) &&
+         (decoded.email === data.email) &&
+         (decoded.name === data.name)
+}
+
 module.exports = {
 
   login(req, res, next) {
@@ -66,12 +76,31 @@ module.exports = {
           respond(res, http_bad_request, message);
         });
     }
+  },
+
+  verifyToken(req, res, next) {
+    const { token } = req.body;
+
+    try {
+      const decoded = jwt.verify(token, config.jwt_secret);
+      User.findOne({ where: { id: decoded.id } })
+        .then((data) => {
+          if (!data)
+            respond(res, http_bad_request);
+          else {
+            if (tokenValid(decoded, data))
+              respond(res, http_ok);
+            else
+              respond(res, http_bad_request);
+          }
+        })
+        .catch((err) => {
+          respond(res, http_bad_request);
+        });
+    }
+    catch(err) {
+      respond(res, http_bad_request);
+    }
   }
 
 };
-
-// Private
-
-function respond(res, status, message, content) {
-  res.status(status).json({ message, content });
-}
