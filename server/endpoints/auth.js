@@ -2,11 +2,12 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const validator = require('validator');
+
 const config = require('../config');
 const constants = require('../config/constants');
-const jwt = require('jsonwebtoken');
 const utils = require('../utils.js');
-const validator = require('validator');
 const User = require('../models/user');
 
 const { db_err_duplicate, http_ok, http_bad_request, http_server_error } = constants;

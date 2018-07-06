@@ -17,7 +17,7 @@ function sleep(ms) {
 async function setup() {
   // DROP ALL TABLES
   User.drop();
-  await sleep(1000);
+  await sleep(3000);
 
   // CREATE ALL TABLES
   User.sync();

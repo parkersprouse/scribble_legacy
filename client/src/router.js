@@ -11,7 +11,7 @@ function requiresAuth(to, from, next) {
     if (success) {
       next();
     } else {
-      next('/');
+      next({ path: '/', query: { n: to.fullPath } });
     }
   });
 }

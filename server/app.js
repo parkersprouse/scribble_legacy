@@ -3,11 +3,12 @@
 
 const body_parser = require('body-parser');
 const cors = require('cors');
-const endpoints = require('./endpoints');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
+
+const endpoints = require('./endpoints');
 
 const app = express();
 

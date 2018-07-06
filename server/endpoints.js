@@ -1,8 +1,9 @@
 // eslint-disable-next-line
 'use strict';
 
-const auth = require('./endpoints/auth');
 const router = require('express').Router();
+
+const auth = require('./endpoints/auth');
 
 // auth endpoints
 router.post('/auth/login', auth.login);

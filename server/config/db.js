@@ -1,8 +1,9 @@
 // eslint-disable-next-line
 'use strict';
 
-const config = require('./index');
 const Sequelize = require('sequelize');
+
+const config = require('./index');
 
 const db = new Sequelize({
   database: config.db.database,

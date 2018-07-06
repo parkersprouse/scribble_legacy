@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import api from '@/lib/api';
-import cookies from '@/lib/cookies';
+import api from '../lib/api';
+import cookies from '../lib/cookies';
 
 export default {
   name: 'register-form',
