@@ -9,4 +9,5 @@ export default {
   set: cookies.set,
   getToken: () => cookies.get('token'),
   setToken: (token, options) => cookies.set('token', token, options),
+  removeToken: () => cookies.remove('token'),
 };

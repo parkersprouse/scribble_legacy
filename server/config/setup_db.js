@@ -2,6 +2,7 @@
 'use strict';
 
 const User = require('../models/user');
+const Scribble = require('../models/scribble');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -16,11 +17,15 @@ function sleep(ms) {
 // So for now we do this because it gets the job done.
 async function setup() {
   // DROP ALL TABLES
+  Scribble.drop();
+  await sleep(3000);
   User.drop();
   await sleep(3000);
 
   // CREATE ALL TABLES
   User.sync();
+  await sleep(3000);
+  Scribble.sync();
 }
 
 module.exports = setup;

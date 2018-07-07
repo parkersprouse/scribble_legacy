@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './pages/Home.vue';
+import Dashboard from './pages/Dashboard.vue';
 import api from './lib/api';
 import cookies from './lib/cookies';
 
@@ -26,6 +27,11 @@ function excludesAuth(to, from, next) {
   });
 }
 
+function logout() {
+  cookies.removeToken();
+  window.location.href = '/';
+}
+
 export default new Router({
   mode: 'history',
   routes: [
@@ -38,8 +44,13 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: null,
+      component: Dashboard,
       beforeEnter: requiresAuth,
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      beforeEnter: logout,
     },
     {
       path: '*',
