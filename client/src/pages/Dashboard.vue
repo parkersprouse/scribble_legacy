@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='wrapper'>
 
     <custom-navbar />
 
@@ -16,11 +16,13 @@
         </div>
       </nav>
 
-      <!-- <div class='columns is-multiline'>
+      <!--
+      <div class='columns is-multiline has-text-centered'>
         <div class='column is-one-quarter'>
           <code>is-one-quarter</code>
         </div>
-      </div> -->
+      </div>
+      -->
 
     </div>
 

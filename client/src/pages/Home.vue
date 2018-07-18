@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='wrapper'>
     <section class='hero is-medium is-dark is-bold' style='margin-bottom: 1rem;'>
       <nav class='navbar is-transparent'>
         <div class='navbar-brand'>
