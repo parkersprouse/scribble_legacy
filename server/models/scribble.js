@@ -2,7 +2,7 @@
 'use strict';
 
 const { db, Sequelize } = require('../config/db');
-const User = require('./user');
+const Users = require('./users');
 
 const attributes = {
   id:           { type: Sequelize.INTEGER, autoIncrement: true, allowNull: false, unique: true, primaryKey: true },
@@ -10,7 +10,7 @@ const attributes = {
   title:        { type: Sequelize.TEXT },
   owner_id:     { type: Sequelize.INTEGER, allowNull: false,
                   references: {
-                    model: User,
+                    model: Users,
                     key: 'id',
                     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
                   }
@@ -23,6 +23,6 @@ const table_config = {
   underscored:     true
 };
 
-const Scribble = db.define('scribbles', attributes, table_config);
+const Scribbles = db.define('scribbles', attributes, table_config);
 
-module.exports = Scribble;
+module.exports = Scribbles;

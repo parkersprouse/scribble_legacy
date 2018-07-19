@@ -8,7 +8,7 @@ const validator = require('validator');
 const config = require('../config');
 const constants = require('../config/constants');
 const utils = require('../utils.js');
-const User = require('../models/user');
+const Users = require('../models/users');
 
 const { db_err_duplicate, http_ok, http_bad_request, http_server_error } = constants;
 
@@ -30,7 +30,7 @@ module.exports = {
     if (!email || !password)
       respond(res, http_bad_request, 'Please make sure all required fields are filled out');
     else
-      User.findOne({ where: { email: { $iLike: email } } })
+      Users.findOne({ where: { email: { $iLike: email } } })
         .then((data) => {
           if (!data)
             respond(res, http_bad_request, 'Your e-mail or password was incorrect');
@@ -63,7 +63,7 @@ module.exports = {
       const salt = bcrypt.genSaltSync();
       const pw_hash = bcrypt.hashSync(password, salt);
 
-      User.create({ name, email, pw_hash })
+      Users.create({ name, email, pw_hash })
         .then((data) => {
           const payload = utils.generateJwtPayload(data);
           const token = jwt.sign(payload, config.jwt_secret);
@@ -84,7 +84,7 @@ module.exports = {
 
     try {
       const decoded = jwt.verify(token, config.jwt_secret);
-      User.findOne({ where: { id: decoded.id } })
+      Users.findOne({ where: { id: decoded.id } })
         .then((data) => {
           if (!data)
             respond(res, http_bad_request);

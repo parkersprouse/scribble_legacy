@@ -23,6 +23,6 @@ const table_config = {
   }]
 };
 
-const User = db.define('users', attributes, table_config);
+const Users = db.define('users', attributes, table_config);
 
-module.exports = User;
+module.exports = Users;
