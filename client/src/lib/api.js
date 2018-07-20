@@ -57,7 +57,6 @@ function patch(endpoint, data, callback) {
 export default {
 
   // user auth
-
   login(data, callback) {
     post('/api/auth/login', data, callback);
   },
@@ -68,6 +67,56 @@ export default {
 
   verifyAuthToken(token, callback) {
     post('/api/auth/verify_token', { token }, callback);
+  },
+
+  // users
+  getUsers(callback) {
+    get('/api/users', callback);
+  },
+
+  getUsersID(id, callback) {
+    get(`/api/users/id/${id}`, callback);
+  },
+
+  getUsersEmail(email, callback) {
+    get(`/api/users/email/${email}`, callback);
+  },
+
+  getUsersName(name, callback) {
+    get(`/api/users/name/${name}`, callback);
+  },
+
+  updateUser(data, callback) {
+    patch('/api/users', data, callback);
+  },
+
+  deleteUser(id, callback) {
+    doDelete(`/api/users/${id}`, callback);
+  },
+
+  // scribbles
+  getScribbles(callback) {
+    get('/api/scribbles', callback);
+  },
+
+  getScribblesID(id, callback) {
+    get(`/api/scribbles/id/${id}`, callback);
+  },
+
+  getScribblesOwnerID(id, callback) {
+    get(`/api/scribbles/owner/${id}`, callback);
+  },
+
+  addScribble(data, callback) {
+    post('/api/scribbles', data, callback);
+  },
+
+  updateScribble(data, callback) {
+    patch('/api/scribbles', data, callback);
+  },
+
+  deleteScribble(id, callback) {
+    doDelete(`/api/scribbles/${id}`, callback);
   },
 
 };
