@@ -1,8 +1,10 @@
 // eslint-disable-next-line
 'use strict';
 
+const jwt = require('jsonwebtoken');
 const validator = require('validator');
 
+const config = require('../config');
 const constants = require('../config/constants');
 const Users = require('../models/users');
 
@@ -26,14 +28,12 @@ module.exports = {
   },
 
   getID(req, res, next) {
-    Users.findAll({ where: { id: req.params.id } })
+    Users.findOne({ where: { id: req.params.id } })
       .then((data) => {
-        if (!data || data.length === 0)
-          respond(res, http_no_content, 'No users found');
-        else {
-          const users = data.map((user) => user.get({ plain: true }));
-          respond(res, http_ok, null, users);
-        }
+        if (!data)
+          respond(res, http_no_content, 'No user found');
+        else
+          respond(res, http_ok, null, data);
       })
       .catch((err) => {
         respond(res, http_server_error, 'Failed to get users', err.message);
@@ -41,14 +41,12 @@ module.exports = {
   },
 
   getEmail(req, res, next) {
-    Users.findAll({ where: { email: { $iLike: req.params.email } } })
+    Users.findOne({ where: { email: { $iLike: req.params.email } } })
       .then((data) => {
-        if (!data || data.length === 0)
-          respond(res, http_no_content, 'No users found');
-        else {
-          const users = data.map((user) => user.get({ plain: true }));
-          respond(res, http_ok, null, users);
-        }
+        if (!data)
+          respond(res, http_no_content, 'No user found');
+        else
+          respond(res, http_ok, null, data);
       })
       .catch((err) => {
         respond(res, http_server_error, 'Failed to get users', err.message);
@@ -98,6 +96,23 @@ module.exports = {
       .catch((err) => {
         respond(res, http_server_error, 'Failed to delete user', err.message);
       });
+  },
+
+  decodeToken(req, res, next) {
+    try {
+      const decoded = jwt.verify(req.body.token, config.jwt_secret);
+
+      Users.findOne({ where: { email: { $iLike: decoded.email } } })
+        .then((data) => {
+          respond(res, http_ok, null, decoded);
+        })
+        .catch((err) => {
+          respond(res, http_bad_request);
+        });
+    }
+    catch(e) {
+      respond(res, http_bad_request);
+    }
   }
 
 };

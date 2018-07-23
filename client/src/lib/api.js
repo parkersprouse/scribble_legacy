@@ -94,6 +94,10 @@ export default {
     doDelete(`/api/users/${id}`, callback);
   },
 
+  decodeToken(token, callback) {
+    post('/api/users/decode', { token }, callback);
+  },
+
   // scribbles
   getScribbles(callback) {
     get('/api/scribbles', callback);

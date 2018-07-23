@@ -42,7 +42,7 @@ module.exports = {
   },
 
   getOwnerID(req, res, next) {
-    Scribbles.findAll({ where: { owner_id: req.params.owner_id } })
+    Scribbles.findAll({ where: { owner_id: req.params.owner_id }, order: ['created_at'] })
       .then((data) => {
         if (!data || data.length === 0)
           respond(res, http_no_content, 'No scribbles found');

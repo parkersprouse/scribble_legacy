@@ -19,6 +19,7 @@ router.get('/users/email/:email', users.getEmail);
 router.get('/users/name/:name', users.getName);
 router.patch('/users', users.update);
 router.delete('/users/:id', users.delete);
+router.post('/users/decode', users.decodeToken);
 
 // scribble endpoints
 router.get('/scribbles', scribbles.getAll);
