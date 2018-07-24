@@ -27,14 +27,12 @@ module.exports = {
   },
 
   getID(req, res, next) {
-    Scribbles.findAll({ where: { id: req.params.id } })
+    Scribbles.findOne({ where: { id: req.params.id } })
       .then((data) => {
-        if (!data || data.length === 0)
-          respond(res, http_no_content, 'No scribbles found');
-        else {
-          const scribbles = data.map((scribble) => scribble.get({ plain: true }));
-          respond(res, http_ok, null, scribbles);
-        }
+        if (!data)
+          respond(res, http_no_content, 'No scribble found');
+        else
+          respond(res, http_ok, null, data);
       })
       .catch((err) => {
         respond(res, http_server_error, 'Failed to get scribbles', err.message);

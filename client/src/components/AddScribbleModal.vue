@@ -1,7 +1,10 @@
 <template>
-  <div v-if='!owner_id'>
-    Loading...
+  <div v-if='!owner_id' class='modal-card'>
+    <section class='modal-card-body'>
+      Loading...
+    </section>
   </div>
+
   <form v-else @submit.prevent='submit'>
     <div class='modal-card'>
 
