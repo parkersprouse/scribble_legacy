@@ -8,6 +8,7 @@ import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import './assets/styles/styles.scss';
 import './assets/styles/materialdesignicons.min.css';
+import './assets/styles/hamburgers.css';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
