@@ -7,14 +7,14 @@
   </div>
 
   <div v-else class='columns is-multiline scribble-list'>
-    <div v-for='scribble in scribbles' class='column is-one-quarter'>
+    <div v-for='scribble in scribbles' :key='scribble.id' class='column is-one-quarter'>
       <div class='card'>
-        <header class='card-header'>
-          <div class='card-header-title'>
+        <header class='card-header' @click='() => goToScribble(scribble.id)'>
+          <div class='card-header-title' :title='scribble.title'>
             {{ scribble.title }}
           </div>
         </header>
-        <div class='card-content'>
+        <div class='card-content' @click='() => goToScribble(scribble.id)'>
           <div class='content'>
             {{ scribble.body }}
           </div>
@@ -40,15 +40,21 @@ export default {
     };
   },
   mounted() {
-    api.decodeToken(cookies.getToken(), (success, response) => {
-      api.getScribblesOwnerID(response.content.id, (success, response) => {
-        if (success)
+    api.decodeToken(cookies.getToken(), (_success, { content }) => {
+      api.getScribblesOwnerID(content.id, (success, response) => {
+        if (success) {
           this.scribbles = response.content;
-        else
+        } else {
           this.scribbles = [];
+        }
       });
     });
-  }
+  },
+  methods: {
+    goToScribble(id) {
+      window.location.href = `/scribbles/${id}`
+    }
+  },
 };
 </script>
 
@@ -59,6 +65,11 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+}
+
+.scribble-list .card-header,
+.scribble-list .card-content {
+  cursor: pointer;
 }
 
 .scribble-list .card-header {

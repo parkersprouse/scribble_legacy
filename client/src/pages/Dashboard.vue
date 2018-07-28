@@ -20,8 +20,6 @@
 
     </div>
 
-    <custom-footer />
-
     <b-modal :active.sync='show_add_scribble' @onCancel='show_add_scribble = false' has-modal-card>
       <add-scribble-modal />
     </b-modal>

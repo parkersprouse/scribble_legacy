@@ -3,10 +3,9 @@
     <custom-navbar />
 
     <div v-if='!scribble' class='container'>
-      Loading...
     </div>
 
-    <div v-else-if='scribble === -1' class='container'>
+    <div v-else-if='scribble === -1' class='container has-text-centered'>
       Scribble not found
     </div>
 
@@ -14,10 +13,22 @@
       <div class='content'>
         <h2 class='title is-2 is-spaced has-text-centered'>{{ scribble.title }}</h2>
         <div class='scribble-body'>{{ scribble.body }}</div>
+        <div class='scribble-controls'>
+          <a class='button is-primary' :href='`/scribbles/${scribble.id}/edit`'>
+            <span class='icon is-small'>
+              <i class='far fa-edit'></i>
+            </span>
+            <span>Edit</span>
+          </a>
+          <button class='button is-danger'>
+            <span class='icon is-small'>
+              <i class='far fa-times-circle'></i>
+            </span>
+            <span>Delete</span>
+          </button>
+        </div>
       </div>
     </div>
-
-    <custom-footer />
   </div>
 </template>
 
@@ -33,12 +44,9 @@ export default {
   },
   mounted() {
     api.getScribblesID(this.$route.params.id, (success, response) => {
-      if (success)
-        this.scribble = response.content;
-      else
-        this.scribble = -1;
+      if (success) { this.scribble = response.content; } else { this.scribble = -1; }
     });
-  }
+  },
 };
 </script>
 
@@ -49,6 +57,11 @@ export default {
   border: 1px solid #a1a1a1;
   border-radius: 5px;
   /* background-color: #f5f5f5; */
+}
+
+.scribble-controls {
+  text-align: center;
+  margin-top: 1rem;
 }
 
 @media screen and (min-width: 1024px) {

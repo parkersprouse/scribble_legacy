@@ -13,22 +13,26 @@
       </header>
 
       <section class='modal-card-body'>
-
         <article v-if='error' class='message is-danger'>
           <div class='message-body'>
             <p>{{ error }}</p>
           </div>
         </article>
-
-        <b-field label='Title'>
-          <b-input placeholder='Title' type='text' v-model.trim='title'></b-input>
-        </b-field>
-        <b-field label='Content'>
-          <b-input placeholder='Content' type='textarea' v-model='body'></b-input>
-        </b-field>
+        <div class='field'>
+          <label class='label'>Title</label>
+          <div class='control'>
+            <input class='input' type='text' placeholder='Title' v-model.trim='title' />
+          </div>
+        </div>
+        <div class='field'>
+          <label class='label'>Content <span class='required-label'>*</span></label>
+          <div class='control'>
+            <textarea class="textarea" placeholder='Content' v-model='body'></textarea>
+          </div>
+        </div>
       </section>
 
-      <footer class='modal-card-foot'>
+      <footer class='modal-card-foot add-scribble-modal-footer'>
         <button class='button' type='button' @click='$parent.close()'>Close</button>
         <button class='button is-primary' :class='{ "is-loading": submitting }'>Create</button>
       </footer>
@@ -59,13 +63,13 @@ export default {
   },
   methods: {
     submit() {
-      console.log('hello')
       this.error = null;
       this.submitting = true;
-      api.addScribble({ title: this.title, body: this.body, owner_id: this.owner_id }, (success, response) => {
-        if (success)
-          window.location.reload();
-        else {
+      const data = { title: this.title, body: this.body, owner_id: this.owner_id };
+      api.addScribble(data, (success, response) => {
+        if (success) {
+          window.location.href = `/scribbles/${response.content.id}`
+        } else {
           this.error = response.message;
           this.submitting = false;
         }
@@ -74,3 +78,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.add-scribble-modal-footer {
+  justify-content: flex-end;
+}
+</style>

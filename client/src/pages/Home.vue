@@ -1,27 +1,6 @@
 <template>
   <div id='wrapper'>
     <section class='hero is-medium is-dark is-bold' style='margin-bottom: 1rem;'>
-      <nav class='navbar is-transparent'>
-        <div class='navbar-brand'>
-          <div class='navbar-burger burger' :class="{ 'is-active': navbar_open }"
-               data-target='top-navbar' @click='toggleNavbar'>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-
-        <div id='top-navbar' class='navbar-menu' :class="{ 'is-active': navbar_open }">
-          <div class='navbar-end'>
-            <a class='navbar-item' href='#login'>
-              Login
-            </a>
-            <a class='navbar-item' href='#register'>
-              Register
-            </a>
-          </div>
-        </div>
-      </nav>
       <div class='hero-body' style='padding-top: 5rem'>
         <div class='container has-text-centered'>
           <h1 class='title' style='font-size: 3rem;'>
@@ -43,7 +22,7 @@
             </p>
             <p>
               Take quick notes to remember for later, whip up a quick to-do list
-              to check later, etc.
+              to check later - whatever you may need.
             </p>
           </div>
         </article>
@@ -70,8 +49,6 @@
       </div>
     </div>
 
-    <custom-footer />
-
   </div>
 </template>
 
@@ -84,16 +61,6 @@ export default {
   components: {
     LoginForm,
     RegisterForm,
-  },
-  data() {
-    return {
-      navbar_open: false,
-    };
-  },
-  methods: {
-    toggleNavbar() {
-      this.navbar_open = !this.navbar_open;
-    },
   },
 };
 </script>
