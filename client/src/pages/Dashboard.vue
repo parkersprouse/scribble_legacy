@@ -9,7 +9,7 @@
         <div class='level-item has-text-centered'>
           <div>
             <a class='button is-large is-primary is-outlined' @click='show_add_scribble = true'>
-              <b-icon icon='plus-outline'></b-icon>
+              <b-icon icon='plus' pack='fas' size='is-small'></b-icon>
               <span>New Scribble</span>
             </a>
           </div>

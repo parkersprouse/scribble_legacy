@@ -52,8 +52,8 @@ export default {
   },
   methods: {
     goToScribble(id) {
-      window.location.href = `/scribbles/${id}`
-    }
+      window.location.href = `/scribbles/${id}`;
+    },
   },
 };
 </script>

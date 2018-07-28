@@ -68,7 +68,7 @@ export default {
       const data = { title: this.title, body: this.body, owner_id: this.owner_id };
       api.addScribble(data, (success, response) => {
         if (success) {
-          window.location.href = `/scribbles/${response.content.id}`
+          window.location.href = `/scribbles/${response.content.id}`;
         } else {
           this.error = response.message;
           this.submitting = false;

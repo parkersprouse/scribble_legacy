@@ -15,15 +15,11 @@
         <div class='scribble-body'>{{ scribble.body }}</div>
         <div class='scribble-controls'>
           <a class='button is-primary' :href='`/scribbles/${scribble.id}/edit`'>
-            <span class='icon is-small'>
-              <i class='far fa-edit'></i>
-            </span>
+            <b-icon icon='edit' size='is-small' pack='far'></b-icon>
             <span>Edit</span>
           </a>
           <button class='button is-danger'>
-            <span class='icon is-small'>
-              <i class='far fa-times-circle'></i>
-            </span>
+            <b-icon icon='times-circle' size='is-small' pack='far'></b-icon>
             <span>Delete</span>
           </button>
         </div>
@@ -44,7 +40,11 @@ export default {
   },
   mounted() {
     api.getScribblesID(this.$route.params.id, (success, response) => {
-      if (success) { this.scribble = response.content; } else { this.scribble = -1; }
+      if (success) {
+        this.scribble = response.content;
+      } else {
+        this.scribble = -1;
+      }
     });
   },
 };

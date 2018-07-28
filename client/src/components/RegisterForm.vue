@@ -14,21 +14,21 @@
             <label class='label'>Name</label>
             <p class='control has-icons-left'>
               <input class='input' type='text' placeholder='Name' v-model='name' />
-              <b-icon icon='account' size='is-small'></b-icon>
+              <b-icon icon='user' size='is-small' pack='far'></b-icon>
             </p>
           </div>
           <div class='field'>
             <label class='label'>E-mail <span class='required-label'>*</span></label>
             <p class='control has-icons-left'>
               <input class='input' type='email' placeholder='E-mail' v-model='email' />
-              <b-icon icon='email' size='is-small'></b-icon>
+              <b-icon icon='envelope' size='is-small' pack='far'></b-icon>
             </p>
           </div>
           <div class='field'>
             <label class='label'>Password <span class='required-label'>*</span></label>
             <p class='control has-icons-left'>
               <input class='input' type='password' placeholder='Password' v-model='password' />
-              <b-icon icon='lock' size='is-small'></b-icon>
+              <b-icon icon='lock' size='is-small' pack='fas'></b-icon>
             </p>
           </div>
           <div class='field'>
@@ -36,7 +36,7 @@
             <p class='control has-icons-left'>
               <input class='input' type='password' placeholder='Confirm Password'
                      v-model='confirm_password' />
-              <b-icon icon='lock' size='is-small'></b-icon>
+              <b-icon icon='lock' size='is-small' pack='fas'></b-icon>
             </p>
           </div>
           <div class='field'>
