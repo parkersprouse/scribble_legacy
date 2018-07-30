@@ -1,15 +1,9 @@
 <template>
-  <div v-if='!owner_id' class='modal-card'>
-    <section class='modal-card-body'>
-      &nbsp;<b-loading :is-full-page='false' :active='true'></b-loading>
-    </section>
-  </div>
-
-  <form v-else @submit.prevent='submit'>
+  <form @submit.prevent='submit'>
     <div class='modal-card'>
 
       <header class='modal-card-head'>
-        <p class='modal-card-title'>New Scribble</p>
+        <p class='modal-card-title'>Edit Scribble</p>
       </header>
 
       <section class='modal-card-body'>
@@ -17,6 +11,14 @@
           <div class='message-body'>
             <p>
               <b-icon icon='exclamation-circle' size='is-small' pack='fas'></b-icon> {{ error }}
+            </p>
+          </div>
+        </article>
+        <article v-if='success' class='message is-success'>
+          <div class='message-body'>
+            <p>
+              <b-icon icon='check-circle' size='is-small' pack='far'></b-icon>&nbsp;
+              Scribble successfully updated
             </p>
           </div>
         </article>
@@ -36,7 +38,7 @@
 
       <footer class='modal-card-foot add-scribble-modal-footer'>
         <button class='button' type='button' @click='$parent.close()'>Close</button>
-        <button class='button is-primary' :class='{ "is-loading": submitting }'>Create</button>
+        <button class='button is-primary' :class='{ "is-loading": submitting }'>Update</button>
       </footer>
 
     </div>
@@ -45,32 +47,33 @@
 
 <script>
 import api from '@/lib/api';
-import cookies from '@/lib/cookies';
 
 export default {
-  name: 'add-scribble-modal',
+  name: 'edit-scribble-modal',
+  props: ['scribble'],
   data() {
     return {
       body: '',
       error: null,
-      owner_id: null,
       title: '',
       submitting: false,
+      success: false,
     };
   },
   mounted() {
-    api.decodeToken(cookies.getToken(), (success, response) => {
-      this.owner_id = response.content.id;
-    });
+    this.title = this.$props.scribble.title;
+    this.body = this.$props.scribble.body;
   },
   methods: {
     submit() {
       this.error = null;
       this.submitting = true;
-      const data = { title: this.title, body: this.body, owner_id: this.owner_id };
-      api.addScribble(data, (success, response) => {
+      this.success = false;
+      const data = { body: this.body, id: this.$props.scribble.id, title: this.title };
+      api.updateScribble(data, (success, response) => {
         if (success) {
-          window.location.href = `/scribbles/${response.content.id}`;
+          this.submitting = false;
+          this.success = true;
         } else {
           this.error = response.message;
           this.submitting = false;

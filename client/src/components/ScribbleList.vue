@@ -57,37 +57,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.scribble-list .card-header .card-header-title,
-.scribble-list .card-content .content {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-
-.scribble-list .card-header,
-.scribble-list .card-content {
-  cursor: pointer;
-}
-
-.scribble-list .card-header {
-  background-color: rgba(248, 248, 248, .9);
-}
-
-@media screen and (min-width: 769px) {
-  .scribble-list .card {
-    height: 100%;
-  }
-
-  .scribble-list .card-content {
-    height: 50%;
-  }
-
-  .scribble-list .card-header,
-  .scribble-list .card-footer {
-    height: 25%;
-  }
-}
-</style>

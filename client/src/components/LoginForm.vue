@@ -3,7 +3,7 @@
 
     <div v-if='error' class='message is-danger'>
       <div class='message-body'>
-        <p>{{ error }}</p>
+        <p><b-icon icon='exclamation-circle' size='is-small' pack='fas'></b-icon> {{ error }}</p>
       </div>
     </div>
 

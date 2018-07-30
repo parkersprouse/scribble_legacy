@@ -1,14 +1,10 @@
-* {
-  outline: 0;
-}
-
 html {
   min-height: 100%;
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body, button, input, select, textarea  {
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
   font-family: 'Muli', sans-serif;
 }
 
@@ -19,6 +15,10 @@ body {
 .footer {
   margin-top: 5rem;
   border-top: 1px solid #dbdbdb;
+}
+
+.message.is-success .message-body {
+  color: #1C9963;
 }
 
 @media screen and (min-width: 769px) {
@@ -63,15 +63,171 @@ body {
 
 @media screen and (min-width: 1024px) {
   .three-quarters-width {
-    width: 75%;
+    width:     75%;
     max-width: 75%;
-    margin: auto;
+    margin:    auto;
   }
 }
 
 @media screen and (max-width: 1023px) {
   .container {
-    margin-left: 0.5rem;
+    margin-left:  0.5rem;
     margin-right: 0.5rem;
   }
+}
+
+// -----------------------------------------------------------------------------
+// Scribble things
+
+.scribble-body {
+  white-space:   pre-wrap;
+  padding:       1.25rem;
+  border:        1px solid #a1a1a1;
+  border-radius: 5px;
+}
+
+.scribble-controls {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .scribble-body {
+    max-width:    50%;
+    margin-left:  auto;
+    margin-right: auto;
+  }
+}
+
+.scribble-list .card-header .card-header-title,
+.scribble-list .card-content .content {
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  display:       block;
+}
+
+.scribble-list .card-header,
+.scribble-list .card-content {
+  cursor: pointer;
+}
+
+.scribble-list .card-header {
+  background-color: rgba(248, 248, 248, .9);
+}
+
+@media screen and (min-width: 769px) {
+  .scribble-list .card {
+    height: 100%;
+  }
+
+  .scribble-list .card-content {
+    height: 50%;
+  }
+
+  .scribble-list .card-header,
+  .scribble-list .card-footer {
+    height: 25%;
+  }
+}
+
+.add-scribble-modal-footer {
+  justify-content: flex-end;
+}
+
+
+// -----------------------------------------------------------------------------
+// Sliding Navbar
+// https://codepen.io/marclloyd77/pen/gtypB
+
+%main-body-transform {
+  -moz-transition:    all 200ms ease-in;
+  -webkit-transition: all 200ms ease-in;
+  -o-transition:      all 200ms ease-in;
+  transition:         all 200ms ease-in;
+}
+
+.navbar-holder {
+  margin-bottom: 5rem;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  background-color: #7957d5;
+}
+
+#navbar {
+  @extend %main-body-transform;
+
+  height:   100%;
+  left:     0;
+  margin:   0 0 0 -250px;
+  position: fixed;
+  top:      0;
+  width:    250px;
+
+  ul {
+    background: #222;
+    height:     100%;
+    list-style: none;
+    margin:     0;
+    overflow:   hidden;
+    padding:    0;
+    width:      250px;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    border-bottom:   1px solid #333;
+    color:           #fff;
+    display:         block;
+    font-size:       1em;
+    font-weight:     300;
+    letter-spacing:  2px;
+    padding:         12px 15px;
+    text-decoration: none;
+  }
+
+  a:hover{
+    background: #111;
+  }
+}
+
+.wrapper {
+  overflow: hidden;
+}
+
+.main-content {
+  @extend %main-body-transform;
+
+  min-height: 100px;
+}
+
+.hamburger-holder {
+  @extend %main-body-transform;
+
+  display: block;
+  left: 10px;
+  position: fixed;
+  top: 10px;
+  z-index: 500;
+}
+
+.hamburger-holder.navbar-open ~ #navbar {
+  margin: 0;
+}
+
+.hamburger-holder.navbar-open {
+  left: 260px;
+}
+
+.navbar-holder.navbar-open ~ .main-content{
+  -webkit-transform: translate3d(260px, 0, 0);
+  -moz-transform:    translate3d(260px, 0, 0);
+  -o-transform:      translate3d(260px, 0, 0);
+  transform:         translate3d(260px, 0, 0);
 }

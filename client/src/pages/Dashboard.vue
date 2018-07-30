@@ -3,7 +3,7 @@
 
     <custom-navbar />
 
-    <div class='container'>
+    <div class='container main-content'>
 
       <nav class='level'>
         <div class='level-item has-text-centered'>

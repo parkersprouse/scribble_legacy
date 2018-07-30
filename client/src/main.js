@@ -6,9 +6,9 @@ import App from './App.vue';
 import router from './router';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
-import './assets/styles/styles.scss';
 import './assets/styles/fontawesome.min.css';
 import './assets/styles/hamburgers.css';
+import './assets/styles/styles.scss';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
