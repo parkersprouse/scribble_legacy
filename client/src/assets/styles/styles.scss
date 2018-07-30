@@ -214,7 +214,7 @@ body, button, input, select, textarea  {
   left: 10px;
   position: absolute;
   top: 10px;
-  z-index: 500;
+  z-index: 39; // the modals are 40
 }
 
 .hamburger-holder.navbar-open ~ #navbar {
