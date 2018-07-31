@@ -20,7 +20,7 @@
             <b-icon icon='edit' size='is-small' pack='far'></b-icon>
             <span>Edit</span>
           </button>
-          <button class='button is-danger'>
+          <button class='button is-danger' @click="showDeleteModal">
             <b-icon icon='times-circle' size='is-small' pack='far'></b-icon>
             <span>Delete</span>
           </button>
@@ -58,6 +58,27 @@ export default {
         this.scribble = -1;
       }
     });
+  },
+  methods: {
+    doDelete() {
+      api.deleteScribble(this.scribble.id, (success) => {
+        if (success) {
+          window.location.href = '/dashboard';
+        }
+      });
+    },
+
+    showDeleteModal() {
+      this.$dialog.confirm({
+        title: 'Delete Scribble',
+        message: 'Are you sure you want to delete this scribble?',
+        confirmText: 'Delete',
+        type: 'is-danger',
+        hasIcon: true,
+        iconPack: 'fa',
+        onConfirm: () => this.doDelete(),
+      });
+    },
   },
 };
 </script>

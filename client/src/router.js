@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './pages/Home.vue';
 import Dashboard from './pages/Dashboard.vue';
 import ShowScribblePage from './pages/ShowScribblePage.vue';
+import NotFound from './pages/NotFound.vue';
 import api from './lib/api';
 import cookies from './lib/cookies';
 
@@ -49,6 +50,11 @@ export default new Router({
       beforeEnter: requiresAuth,
     },
     {
+      path: '/scribbles',
+      name: 'scribbles',
+      redirect: '/dashboard',
+    },
+    {
       path: '/scribbles/:id',
       name: 'scribble_show',
       component: ShowScribblePage,
@@ -62,7 +68,7 @@ export default new Router({
     {
       path: '*',
       name: 'not_found',
-      component: null,
+      component: NotFound,
     },
   ],
 });

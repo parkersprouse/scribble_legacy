@@ -2,10 +2,12 @@ html {
   min-height: 100%;
 }
 
-body, button, input, select, textarea  {
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
+*, body, button, input, select, textarea  {
   font-family: 'Muli', sans-serif;
+}
+
+body {
+  color: #363636;
 }
 
 .required-label {

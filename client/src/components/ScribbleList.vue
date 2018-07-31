@@ -21,7 +21,7 @@
         </div>
         <footer class='card-footer'>
           <a :href='`/scribbles/${scribble.id}`' class='card-footer-item'>View</a>
-          <a :href='`/scribbles/${scribble.id}/edit`' class='card-footer-item'>Edit</a>
+          <!-- <a :href='`/scribbles/${scribble.id}/edit`' class='card-footer-item'>Edit</a> -->
         </footer>
       </div>
     </div>
