@@ -137,6 +137,29 @@ body {
   justify-content: flex-end;
 }
 
+.scribble-list-item-footer-link {
+  color: #7957d5;
+}
+
+.scribble-list-item-card:hover {
+  -webkit-box-shadow: 0 2px 3px #7957d588, 0 0 0 1px #7957d588;
+  box-shadow: 0 2px 3px #7957d588, 0 0 0 1px #7957d588;
+}
+
+.scribble-list-item-card:hover .card-header {
+  -webkit-box-shadow: 0 1px 2px #7957d588;
+  box-shadow: 0 1px 2px #7957d588;
+}
+
+.scribble-list-item-card:hover .card-footer {
+  border-top: 1px solid #7957d5;
+}
+
+.scribble-list-item-card:hover .scribble-list-item-footer-link {
+  color: #7957d5;
+  font-weight: bold;
+}
+
 
 // -----------------------------------------------------------------------------
 // Sliding Navbar

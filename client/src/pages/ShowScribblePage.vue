@@ -21,7 +21,7 @@
             <span>Edit</span>
           </button>
           <button class='button is-danger' @click="showDeleteModal">
-            <b-icon icon='times-circle' size='is-small' pack='far'></b-icon>
+            <b-icon icon='trash-alt' size='is-small' pack='far'></b-icon>
             <span>Delete</span>
           </button>
         </div>

@@ -8,7 +8,7 @@
 
   <div v-else class='columns is-multiline scribble-list'>
     <div v-for='scribble in scribbles' :key='scribble.id' class='column is-one-quarter'>
-      <div class='card'>
+      <div class='card scribble-list-item-card'>
         <header class='card-header' @click='() => goToScribble(scribble.id)'>
           <div class='card-header-title' :title='scribble.title'>
             {{ scribble.title }}
@@ -19,8 +19,9 @@
             {{ scribble.body }}
           </div>
         </div>
-        <footer class='card-footer'>
-          <a :href='`/scribbles/${scribble.id}`' class='card-footer-item'>View</a>
+        <footer class='card-footer scribble-list-item-card-footer'>
+          <a :href='`/scribbles/${scribble.id}`'
+             class='card-footer-item scribble-list-item-footer-link'>View</a>
           <!-- <a :href='`/scribbles/${scribble.id}/edit`' class='card-footer-item'>Edit</a> -->
         </footer>
       </div>

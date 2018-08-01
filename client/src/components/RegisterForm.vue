@@ -41,8 +41,12 @@
           </div>
           <div class='field'>
             <div class='control has-text-centered'>
-              <button class='button is-dark' :class="{ 'is-loading': submitting }"
-                      type='submit'>Register</button>
+              <button class='button is-dark' :class="{ 'is-loading': submitting }" type='submit'>
+                <span class="icon is-small">
+                  <b-icon icon='user-plus' size='is-small' pack='fas'></b-icon>
+                </span>
+                <span>Register</span>
+              </button>
             </div>
           </div>
         </form>

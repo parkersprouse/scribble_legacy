@@ -26,8 +26,12 @@
           </div>
           <div class='field'>
             <div class='control has-text-centered'>
-              <button class='button is-dark' :class="{ 'is-loading': submitting }"
-                      type='submit'>Login</button>
+              <button class='button is-dark' :class="{ 'is-loading': submitting }" type='submit'>
+                <span class="icon is-small">
+                  <b-icon icon='sign-in-alt' size='is-small' pack='fas'></b-icon>
+                </span>
+                <span>Login</span>
+              </button>
             </div>
           </div>
         </form>
