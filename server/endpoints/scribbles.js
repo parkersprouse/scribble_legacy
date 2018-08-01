@@ -5,9 +5,11 @@ const moment = require('moment');
 const validator = require('validator');
 
 const constants = require('../config/constants');
+const { Sequelize } = require('../config/db');
 const Scribbles = require('../models/scribbles');
 
 const { db_err_duplicate, http_ok, http_no_content, http_bad_request, http_server_error } = constants;
+const { Op } = Sequelize;
 
 function respond(res, status, message, content) {
   res.status(status).json({ message, content });
@@ -95,6 +97,25 @@ module.exports = {
       })
       .catch((err) => {
         respond(res, http_server_error, 'Failed to delete scribble', err.message);
+      });
+  },
+
+  search(req, res, next) {
+    const { term } = req.body;
+    const body = { body: { $iLike: `%${term}%` } };
+    const title = { title: { $iLike: `%${term}%` } };
+    const query = { [Op.or]: [body, title] };
+    Scribbles.findAll({ where: query, order: ['created_at'] })
+      .then((data) => {
+        if (!data || data.length === 0)
+          respond(res, http_no_content, 'No scribbles found');
+        else {
+          const scribbles = data.map((scribble) => scribble.get({ plain: true }));
+          respond(res, http_ok, null, scribbles);
+        }
+      })
+      .catch((err) => {
+        respond(res, http_server_error, 'Failed to get scribbles', err.message);
       });
   }
 

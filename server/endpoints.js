@@ -28,5 +28,6 @@ router.get('/scribbles/owner/:owner_id', scribbles.getOwnerID);
 router.post('/scribbles', scribbles.add);
 router.patch('/scribbles', scribbles.update);
 router.delete('/scribbles/:id', scribbles.delete);
+router.post('/scribbles/search', scribbles.search);
 
 module.exports = router;

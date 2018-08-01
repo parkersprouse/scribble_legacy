@@ -123,4 +123,8 @@ export default {
     doDelete(`/api/scribbles/${id}`, callback);
   },
 
+  searchScribbles(term, callback) {
+    post('/api/scribbles/search', { term }, callback);
+  },
+
 };
