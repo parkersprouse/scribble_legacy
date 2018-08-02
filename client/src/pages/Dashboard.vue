@@ -5,8 +5,24 @@
 
     <div class='container main-content'>
 
-      <nav class='level'>
+      <nav v-if='searched_term' class='level'>
         <div class='level-item has-text-centered'>
+          <div>
+            <h2 class="title is-2">Search for: {{ searched_term }}</h2>
+          </div>
+        </div>
+      </nav>
+
+      <nav class='level'>
+        <div v-if='searched_term' class='level-item has-text-centered'>
+          <div>
+            <a class='button is-large is-primary is-outlined' href='/dashboard'>
+              <b-icon icon='angle-left' pack='fas' size='is-small'></b-icon>
+              <span>Back</span>
+            </a>
+          </div>
+        </div>
+        <div v-else class='level-item has-text-centered'>
           <div>
             <a class='button is-large is-primary is-outlined' @click='show_add_scribble = true'>
               <b-icon icon='plus' pack='fas' size='is-small'></b-icon>
@@ -32,7 +48,7 @@
         </div>
       </nav>
 
-      <scribble-list />
+      <scribble-list :scribbles='scribbles' :is_search='!!searched_term' />
 
     </div>
 
@@ -45,6 +61,7 @@
 
 <script>
 import api from '@/lib/api';
+import cookies from '@/lib/cookies';
 import AddScribbleModal from '@/components/AddScribbleModal.vue';
 import ScribbleList from '@/components/ScribbleList.vue';
 
@@ -56,19 +73,45 @@ export default {
   },
   data() {
     return {
+      scribbles: null,
       search_term: '',
+      searched_term: this.$route.query.q,
       show_add_scribble: false,
     };
+  },
+  mounted() {
+    if (this.$route.query.q) {
+      this.search_term = this.$route.query.q;
+      api.decodeToken(cookies.getToken(), (_success, { content }) => {
+        api.searchScribbles(
+          { term: this.$route.query.q, owner_id: content.id },
+          (success, response) => {
+            if (success) {
+              this.scribbles = response.content;
+            } else {
+              this.scribbles = [];
+            }
+          },
+        );
+      });
+    } else {
+      api.decodeToken(cookies.getToken(), (_success, { content }) => {
+        api.getScribblesOwnerID(content.id, (success, response) => {
+          if (success) {
+            this.scribbles = response.content;
+          } else {
+            this.scribbles = [];
+          }
+        });
+      });
+    }
   },
   methods: {
     performSearch() {
       if (this.search_term) {
-        api.searchScribbles(this.search_term, (s, r) => {
-          console.log(s);
-          console.log(r.content);
-        });
+        window.location.href = `/dashboard?q=${this.search_term}`;
       }
-    }
-  }
+    },
+  },
 };
 </script>

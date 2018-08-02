@@ -101,10 +101,13 @@ module.exports = {
   },
 
   search(req, res, next) {
-    const { term } = req.body;
+    const { term, owner_id } = req.body;
+    if (!term || !owner_id)
+      return respond(res, http_bad_request, 'Please provide a search term');
+
     const body = { body: { $iLike: `%${term}%` } };
     const title = { title: { $iLike: `%${term}%` } };
-    const query = { [Op.or]: [body, title] };
+    const query = { [Op.or]: [body, title], owner_id };
     Scribbles.findAll({ where: query, order: ['created_at'] })
       .then((data) => {
         if (!data || data.length === 0)

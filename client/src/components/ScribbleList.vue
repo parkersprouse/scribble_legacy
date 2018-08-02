@@ -3,7 +3,8 @@
   </div>
 
   <div v-else-if='scribbles.length === 0'>
-    You have no scribbles
+    <span v-if='is_search'>No search results</span>
+    <span v-else>You have no scribbles</span>
   </div>
 
   <div v-else class='columns is-multiline scribble-list'>
@@ -30,27 +31,9 @@
 </template>
 
 <script>
-import api from '@/lib/api';
-import cookies from '@/lib/cookies';
-
 export default {
   name: 'scribble-list',
-  data() {
-    return {
-      scribbles: null,
-    };
-  },
-  mounted() {
-    api.decodeToken(cookies.getToken(), (_success, { content }) => {
-      api.getScribblesOwnerID(content.id, (success, response) => {
-        if (success) {
-          this.scribbles = response.content;
-        } else {
-          this.scribbles = [];
-        }
-      });
-    });
-  },
+  props: ['is_search', 'scribbles'],
   methods: {
     goToScribble(id) {
       window.location.href = `/scribbles/${id}`;
