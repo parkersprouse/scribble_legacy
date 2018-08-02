@@ -14,6 +14,22 @@
       </nav>
 
       <nav class='level'>
+        <div class='level-item has-text-centered'>
+          <div>
+            <form @submit.prevent='performSearch'>
+              <b-field>
+                <b-input icon='search' icon-pack='fas' placeholder='Search...'
+                         type='search' v-model='search_term'></b-input>
+                <p class='control'>
+                  <button class='button is-primary' type='submit'>Search</button>
+                </p>
+              </b-field>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <nav class='level'>
         <div v-if='searched_term' class='level-item has-text-centered'>
           <div>
             <a class='button is-large is-primary is-outlined' href='/dashboard'>
@@ -28,22 +44,6 @@
               <b-icon icon='plus' pack='fas' size='is-small'></b-icon>
               <span>New Scribble</span>
             </a>
-          </div>
-        </div>
-      </nav>
-
-      <nav class='level'>
-        <div class='level-item has-text-centered'>
-          <div>
-            <form @submit.prevent='performSearch'>
-              <b-field>
-                <b-input icon='search' icon-pack='fas' placeholder='Search...'
-                         type='search' v-model='search_term'></b-input>
-                <p class='control'>
-                  <button class='button is-primary' type='submit'>Search</button>
-                </p>
-              </b-field>
-            </form>
           </div>
         </div>
       </nav>
