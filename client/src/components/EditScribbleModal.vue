@@ -10,7 +10,7 @@
         <article v-if='error' class='message is-danger'>
           <div class='message-body'>
             <p>
-              <b-icon icon='exclamation-circle' size='is-small' pack='fas'></b-icon> {{ error }}
+              <b-icon icon='exclamation-circle' size='is-small'></b-icon> {{ error }}
             </p>
           </div>
         </article>

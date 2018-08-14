@@ -12,10 +12,10 @@
     <nav id='navbar'>
       <ul>
         <li>
-          <a href='/'><i class="fas fa-home"></i> Dashboard</a>
+          <a href='/'><b-icon icon='home' size='is-small'></b-icon> Dashboard</a>
         </li>
         <li>
-          <a href='/logout'><i class="fas fa-sign-out-alt"></i> Logout</a>
+          <a href='/logout'><b-icon icon='sign-out-alt' size='is-small'></b-icon> Logout</a>
         </li>
       </ul>
     </nav>

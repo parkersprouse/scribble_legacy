@@ -11,7 +11,7 @@ import './assets/styles/hamburgers.css';
 import './assets/styles/styles.scss';
 
 Vue.config.productionTip = false;
-Vue.use(Buefy);
+Vue.use(Buefy, { defaultIconPack: 'fas' });
 
 Vue.component('custom-navbar', Navbar);
 Vue.component('custom-footer', Footer);

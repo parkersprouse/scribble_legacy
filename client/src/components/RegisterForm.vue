@@ -3,7 +3,7 @@
 
     <div v-if='error' class='message is-danger'>
       <div class='message-body'>
-        <p><b-icon icon='exclamation-circle' size='is-small' pack='fas'></b-icon> {{ error }}</p>
+        <p><b-icon icon='exclamation-circle' size='is-small'></b-icon> {{ error }}</p>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
               <b-input type='password' v-model='password' placeholder='Password'
                        password-reveal>
               </b-input>
-              <b-icon icon='lock' size='is-small' pack='fas' class='is-left'></b-icon>
+              <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
             </p>
           </div>
           <div class='field'>
@@ -39,13 +39,13 @@
               <b-input type='password' v-model='confirm_password' placeholder='Confirm Password'
                        password-reveal>
               </b-input>
-              <b-icon icon='lock' size='is-small' pack='fas' class='is-left'></b-icon>
+              <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
             </p>
           </div>
           <div class='field'>
             <div class='control has-text-centered'>
               <button class='button is-dark' :class="{ 'is-loading': submitting }" type='submit'>
-                <b-icon icon='user-plus' size='is-small' pack='fas'></b-icon>
+                <b-icon icon='user-plus' size='is-small'></b-icon>
                 <span>Register</span>
               </button>
             </div>

@@ -15,11 +15,12 @@
 
       <nav class='level'>
         <div class='level-item has-text-centered'>
-          <div>
+          <div class='mobile-fullwidth'>
             <form @submit.prevent='performSearch'>
               <b-field>
-                <b-input icon='search' icon-pack='fas' placeholder='Search...'
-                         type='search' v-model='search_term'></b-input>
+                <b-input icon='search' placeholder='Search...'
+                         type='search' v-model='search_term'
+                         class='mobile-fullwidth-input-addon'></b-input>
                 <p class='control'>
                   <button class='button is-primary' type='submit'>Search</button>
                 </p>
@@ -31,17 +32,18 @@
 
       <nav class='level'>
         <div v-if='searched_term' class='level-item has-text-centered'>
-          <div>
-            <a class='button is-large is-primary is-outlined' href='/dashboard'>
-              <b-icon icon='angle-left' pack='fas' size='is-small'></b-icon>
+          <div class='mobile-fullwidth'>
+            <a class='button is-large is-primary is-outlined mobile-fullwidth' href='/dashboard'>
+              <b-icon icon='angle-left' size='is-small'></b-icon>
               <span>Back</span>
             </a>
           </div>
         </div>
         <div v-else class='level-item has-text-centered'>
-          <div>
-            <a class='button is-large is-primary is-outlined' @click='show_add_scribble = true'>
-              <b-icon icon='plus' pack='fas' size='is-small'></b-icon>
+          <div class='mobile-fullwidth'>
+            <a class='button is-large is-primary is-outlined mobile-fullwidth'
+               @click='show_add_scribble = true'>
+              <b-icon icon='plus' size='is-small'></b-icon>
               <span>New Scribble</span>
             </a>
           </div>
