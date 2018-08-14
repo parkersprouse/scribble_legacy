@@ -14,22 +14,22 @@
             <label class='label'>E-mail <span class='required-label'>*</span></label>
             <p class='control has-icons-left'>
               <input class='input' type='email' placeholder='E-mail' v-model='email' />
-              <b-icon icon='envelope' size='is-small' pack='far'></b-icon>
+              <b-icon icon='envelope' size='is-small' pack='far' class='is-left'></b-icon>
             </p>
           </div>
           <div class='field'>
             <label class='label'>Password <span class='required-label'>*</span></label>
             <p class='control has-icons-left'>
-              <input class='input' type='password' placeholder='Password' v-model='password' />
-              <b-icon icon='lock' size='is-small' pack='fas'></b-icon>
+              <b-input type='password' v-model='password' placeholder='Password'
+                       password-reveal>
+              </b-input>
+              <b-icon icon='lock' size='is-small' pack='fas' class='is-left'></b-icon>
             </p>
           </div>
           <div class='field'>
             <div class='control has-text-centered'>
               <button class='button is-dark' :class="{ 'is-loading': submitting }" type='submit'>
-                <span class="icon is-small">
-                  <b-icon icon='sign-in-alt' size='is-small' pack='fas'></b-icon>
-                </span>
+                <b-icon icon='sign-in-alt' size='is-small' pack='fas'></b-icon>
                 <span>Login</span>
               </button>
             </div>

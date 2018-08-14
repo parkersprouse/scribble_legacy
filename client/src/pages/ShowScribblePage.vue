@@ -16,7 +16,8 @@
         <h2 class='title is-2 is-spaced has-text-centered'>{{ scribble.title }}</h2>
         <div class='scribble-body'>{{ scribble.body }}</div>
         <div class='scribble-controls'>
-          <button class='button is-primary' @click='show_edit_scribble = true'>
+          <button class='button is-primary' @click='show_edit_scribble = true'
+                  style='margin-right: 0.25rem;'>
             <b-icon icon='edit' size='is-small' pack='far'></b-icon>
             <span>Edit</span>
           </button>
