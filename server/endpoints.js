@@ -22,12 +22,13 @@ router.delete('/users/:id', users.delete);
 router.post('/users/decode', users.decodeToken);
 
 // scribble endpoints
+router.delete('/scribbles/:id', scribbles.delete);
 router.get('/scribbles', scribbles.getAll);
 router.get('/scribbles/id/:id', scribbles.getID);
 router.get('/scribbles/owner/:owner_id', scribbles.getOwnerID);
 router.post('/scribbles', scribbles.add);
 router.patch('/scribbles', scribbles.update);
-router.delete('/scribbles/:id', scribbles.delete);
 router.post('/scribbles/search', scribbles.search);
+router.post('/scribbles/paginate', scribbles.paginate);
 
 module.exports = router;

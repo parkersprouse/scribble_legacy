@@ -3,7 +3,9 @@
 
     <custom-navbar />
 
-    <div class='container main-content'>
+    <div v-if='!scribbles'></div>
+
+    <div v-else class='container main-content'>
 
       <nav v-if='searched_term' class='level'>
         <div class='level-item has-text-centered'>
@@ -50,7 +52,15 @@
         </div>
       </nav>
 
+      <custom-paginator :current='page' :itemsPerPage='per'
+                        :onChange='clickPaginatorLink' :total='total'>
+      </custom-paginator>
+
       <scribble-list :scribbles='scribbles' :is_search='!!searched_term' />
+
+      <custom-paginator :current='page' :itemsPerPage='per'
+                        :onChange='clickPaginatorLink' :total='total'>
+      </custom-paginator>
 
     </div>
 
@@ -75,40 +85,45 @@ export default {
   },
   data() {
     return {
+      page: Number(this.$route.query.page) || 1,
+      per: Number(this.$route.query.per) || 10,
       scribbles: null,
       search_term: '',
       searched_term: this.$route.query.q,
       show_add_scribble: false,
+      total: null,
     };
   },
   mounted() {
+    let method = () => {};
+    const body = { page: this.page, per: this.per };
+
     if (this.$route.query.q) {
+      method = api.searchScribbles;
       this.search_term = this.$route.query.q;
-      api.decodeToken(cookies.getToken(), (_success, { content }) => {
-        api.searchScribbles(
-          { term: this.$route.query.q, owner_id: content.id },
-          (success, response) => {
-            if (success) {
-              this.scribbles = response.content;
-            } else {
-              this.scribbles = [];
-            }
-          },
-        );
-      });
+      body.term = this.search_term;
     } else {
-      api.decodeToken(cookies.getToken(), (_success, { content }) => {
-        api.getScribblesOwnerID(content.id, (success, response) => {
-          if (success) {
-            this.scribbles = response.content;
-          } else {
-            this.scribbles = [];
-          }
-        });
-      });
+      method = api.paginateScribbles;
     }
+
+    api.decodeToken(cookies.getToken(), (_success, { content }) => {
+      method({ ...body, owner_id: content.id }, (success, response) => {
+        if (success) {
+          this.scribbles = response.content.scribbles;
+          this.total = response.content.total;
+        } else {
+          this.scribbles = [];
+          this.total = 0;
+        }
+      });
+    });
   },
   methods: {
+    clickPaginatorLink(page) {
+      let url = `/dashboard?page=${page}&per=${this.per}`;
+      if (this.searched_term) { url += `&q=${this.searched_term}`; }
+      window.location.href = url;
+    },
     performSearch() {
       if (this.search_term) {
         window.location.href = `/dashboard?q=${this.search_term}`;

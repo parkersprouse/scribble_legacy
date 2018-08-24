@@ -6,6 +6,7 @@ import App from './App.vue';
 import router from './router';
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
+import Paginator from './components/Pagination/Paginator.vue';
 import './assets/styles/fontawesome.min.css';
 import './assets/styles/hamburgers.css';
 import './assets/styles/styles.scss';
@@ -15,6 +16,7 @@ Vue.use(Buefy, { defaultIconPack: 'fas' });
 
 Vue.component('custom-navbar', Navbar);
 Vue.component('custom-footer', Footer);
+Vue.component('custom-paginator', Paginator);
 
 new Vue({
   router,

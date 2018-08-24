@@ -28,6 +28,29 @@ module.exports = {
       });
   },
 
+  paginate(req, res, next) {
+    let { page, per, owner_id } = req.body;
+    if (!page) page = 1;
+    if (!per) per = 10;
+
+    Scribbles.findAll({ where: { owner_id } })
+      .then((data) => {
+        const total = data.map((scribble) => scribble.get({ plain: true })).length;
+        Scribbles.findAll({
+          where: { owner_id }, limit: per, offset: (page - 1) * per, order: ['created_at']
+        }).then((data) => {
+            const scribbles = data.map((scribble) => scribble.get({ plain: true }));
+            respond(res, http_ok, null, { scribbles, total });
+          })
+          .catch((err) => {
+            respond(res, http_server_error, 'Failed to get scribbles', err.message);
+          });
+      })
+      .catch((err) => {
+        respond(res, http_server_error, 'Failed to get scribbles', err.message);
+      });
+  },
+
   getID(req, res, next) {
     Scribbles.findOne({ where: { id: req.params.id } })
       .then((data) => {
@@ -101,21 +124,33 @@ module.exports = {
   },
 
   search(req, res, next) {
-    const { term, owner_id } = req.body;
+    let { page, per, term, owner_id } = req.body;
+    if (!page) page = 1;
+    if (!per) per = 10;
+
     if (!term || !owner_id)
       return respond(res, http_bad_request, 'Please provide a search term');
 
     const body = { body: { $iLike: `%${term}%` } };
     const title = { title: { $iLike: `%${term}%` } };
     const query = { [Op.or]: [body, title], owner_id };
-    Scribbles.findAll({ where: query, order: ['created_at'] })
+
+    Scribbles.findAll({ where: query })
       .then((data) => {
-        if (!data || data.length === 0)
-          respond(res, http_no_content, 'No scribbles found');
-        else {
-          const scribbles = data.map((scribble) => scribble.get({ plain: true }));
-          respond(res, http_ok, null, scribbles);
-        }
+        const total = data.map((scribble) => scribble.get({ plain: true })).length;
+        Scribbles.findAll({
+          where: query, limit: per, offset: (page - 1) * per, order: ['created_at']
+        }).then((data) => {
+            if (!data || data.length === 0)
+              respond(res, http_no_content, 'No scribbles found');
+            else {
+              const scribbles = data.map((scribble) => scribble.get({ plain: true }));
+              respond(res, http_ok, null, { scribbles, total });
+            }
+          })
+          .catch((err) => {
+            respond(res, http_server_error, 'Failed to get scribbles', err.message);
+          });
       })
       .catch((err) => {
         respond(res, http_server_error, 'Failed to get scribbles', err.message);

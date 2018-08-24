@@ -127,4 +127,8 @@ export default {
     post('/api/scribbles/search', data, callback);
   },
 
+  paginateScribbles(data, callback) {
+    post('/api/scribbles/paginate', data, callback);
+  },
+
 };
