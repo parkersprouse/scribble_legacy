@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module endpoints/auth */
 'use strict';
 
 const bcrypt = require('bcrypt');
@@ -6,98 +6,97 @@ const jwt = require('jsonwebtoken');
 const validator = require('validator');
 
 const config = require('../config');
-const constants = require('../config/constants');
-const utils = require('../utils.js');
 const Users = require('../models/users');
-
-const { db_err_duplicate, http_ok, http_bad_request, http_server_error } = constants;
-
-function respond(res, status, message, content) {
-  res.status(status).json({ message, content });
-}
-
-function tokenValid(decoded, data) {
-  return (decoded.pw_hash === data.pw_hash) &&
-         (decoded.email === data.email) &&
-         (decoded.name === data.name)
-}
+const {
+  db_err_duplicate,
+  http_ok,
+  http_bad_request,
+  http_server_error
+} = require('../config/constants');
+const {
+  call,
+  generateJwtPayload,
+  respond,
+  tokenValid
+} = require('../utils.js');
 
 module.exports = {
 
-  login(req, res, next) {
+  /**
+   * Logs a user in.
+   * @function
+   * @async
+   * @param {object} req - The client's request.
+   * @param {object} res - The server's response.
+   */
+  async login(req, res) {
     const { email, password } = req.body;
-
     if (!email || !password)
-      respond(res, http_bad_request, 'Please make sure all required fields are filled out');
-    else
-      Users.findOne({ where: { email: { $iLike: email } } })
-        .then((data) => {
-          if (!data)
-            respond(res, http_bad_request, 'Your e-mail or password was incorrect');
-          else {
-            const match = bcrypt.compareSync(password, data.pw_hash);
-            if (match) {
-              const payload = utils.generateJwtPayload(data);
-              const token = jwt.sign(payload, config.jwt_secret);
-              respond(res, http_ok, null, token);
-            }
-            else
-              respond(res, http_bad_request, 'Your e-mail or password was incorrect');
-          }
-        })
-        .catch((err) => {
-          respond(res, http_server_error, 'There was an unknown problem when trying to log you in');
-        });
-  },
+      return respond(res, http_bad_request, 'Please make sure all required fields are filled out');
 
-  register(req, res, next) {
-    const { confirm_password, email, name, password } = req.body;
+    const [err, data] = await call(Users.findOne({ where: { email: { $iLike: email } } }));
+    if (err)
+      return respond(res, http_server_error, 'There was an unknown problem when trying to log you in', err.message);
+    if (!data)
+      return respond(res, http_bad_request, 'Your e-mail or password was incorrect');
 
-    if (!email || !password || !confirm_password)
-      respond(res, http_bad_request, 'Please make sure all required fields are filled out');
-    else if (!validator.isEmail(email))
-      respond(res, http_bad_request, 'Please make sure your e-mail is valid');
-    else if (password !== confirm_password)
-      respond(res, http_bad_request, 'Please make sure the passwords match');
-    else {
-      const salt = bcrypt.genSaltSync();
-      const pw_hash = bcrypt.hashSync(password, salt);
-
-      Users.create({ name, email, pw_hash })
-        .then((data) => {
-          const payload = utils.generateJwtPayload(data);
-          const token = jwt.sign(payload, config.jwt_secret);
-          respond(res, http_ok, null, { data, token });
-        })
-        .catch((err) => {
-          console.log(err)
-          let message = 'There was an unknown problem when creating your account';
-          if (err.name === db_err_duplicate)
-            message = 'An account with that e-mail address already exists';
-          respond(res, http_bad_request, message);
-        });
+    const match = bcrypt.compareSync(password, data.pw_hash);
+    if (match) {
+      const payload = generateJwtPayload(data);
+      const token = jwt.sign(payload, config.jwt_secret);
+      return respond(res, http_ok, null, token);
     }
+
+    respond(res, http_bad_request, 'Your e-mail or password was incorrect');
   },
 
-  verifyToken(req, res, next) {
-    const { token } = req.body;
+  /**
+   * Registers a new user.
+   * @function
+   * @async
+   * @param {object} req - The client's request.
+   * @param {object} res - The server's response.
+   */
+  async register(req, res) {
+    const { confirm_password, email, name, password } = req.body;
+    if (!email || !password || !confirm_password)
+      return respond(res, http_bad_request, 'Please make sure all required fields are filled out');
+    else if (!validator.isEmail(email))
+      return respond(res, http_bad_request, 'Please make sure your e-mail is valid');
+    else if (password !== confirm_password)
+      return respond(res, http_bad_request, 'Please make sure the passwords match');
 
+    const salt = bcrypt.genSaltSync();
+    const pw_hash = bcrypt.hashSync(password, salt);
+    const [err, data] = await call(Users.create({ name, email, pw_hash }));
+    if (err) {
+      let message = 'There was an unknown problem when creating your account';
+      if (err.name === db_err_duplicate)
+        message = 'An account with that e-mail address already exists';
+      return respond(res, http_bad_request, message);
+    }
+
+    const payload = generateJwtPayload(data);
+    const token = jwt.sign(payload, config.jwt_secret);
+    respond(res, http_ok, null, { data, token });
+  },
+
+  /**
+   * Verifies a user's authentication JWT.
+   * @function
+   * @async
+   * @param {object} req - The client's request.
+   * @param {object} res - The server's response.
+   */
+  async verifyToken(req, res) {
+    const { token } = req.body;
     try {
       const decoded = jwt.verify(token, config.jwt_secret);
-      Users.findOne({ where: { id: decoded.id } })
-        .then((data) => {
-          if (!data)
-            respond(res, http_bad_request);
-          else {
-            if (tokenValid(decoded, data))
-              respond(res, http_ok);
-            else
-              respond(res, http_bad_request);
-          }
-        })
-        .catch((err) => {
-          respond(res, http_bad_request);
-        });
+      const [err, data] = await call(Users.findOne({ where: { id: decoded.id } }));
+      if (err || !data || !tokenValid(decoded, data))
+        return respond(res, http_bad_request);
+
+      respond(res, http_ok);
     }
     catch(err) {
       respond(res, http_bad_request);

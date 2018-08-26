@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module app */
 'use strict';
 
 const body_parser = require('body-parser');

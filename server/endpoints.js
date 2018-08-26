@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module endpoints */
 'use strict';
 
 const router = require('express').Router();

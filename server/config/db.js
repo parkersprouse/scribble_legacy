@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module config/db */
 'use strict';
 
 const Sequelize = require('sequelize');

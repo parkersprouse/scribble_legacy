@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module config/index */
 'use strict';
 
 var config = {

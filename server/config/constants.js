@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+/** @module config/constants */
 'use strict';
 
 module.exports = {
