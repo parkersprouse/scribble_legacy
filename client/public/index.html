@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
     <title>Scribble</title>
   </head>
   <body>
@@ -14,5 +15,8 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script type="text/javascript">
+      Raven.config('https://71cf03adb6e846b1adc1c7a60e95fb2b@sentry.io/12705111270511').install();
+    </script>
   </body>
 </html>

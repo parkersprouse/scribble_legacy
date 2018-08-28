@@ -18,7 +18,10 @@ Vue.component('custom-navbar', Navbar);
 Vue.component('custom-footer', Footer);
 Vue.component('custom-paginator', Paginator);
 
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app');
+// eslint-disable-next-line
+Raven.context(() => {
+  new Vue({
+    router,
+    render: h => h(App),
+  }).$mount('#app');
+});
