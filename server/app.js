@@ -7,10 +7,15 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
+const raven = require('raven');
 
 const endpoints = require('./endpoints');
 
 const app = express();
+
+raven.config('https://71cf03adb6e846b1adc1c7a60e95fb2b@sentry.io/1270511').install();
+app.use(raven.requestHandler());
+app.use(raven.errorHandler());
 
 // Setup logger
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));

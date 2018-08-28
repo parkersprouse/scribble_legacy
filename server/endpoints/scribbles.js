@@ -29,6 +29,7 @@ module.exports = {
    * @returns {void}
    */
   async getAll(req, res) {
+    throw new Exception('boooo')
     const [err, data] = await call(Scribbles.findAll());
     if (err)
       return respond(res, http_server_error, 'Failed to get all scribbles', err.message);
