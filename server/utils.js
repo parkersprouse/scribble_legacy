@@ -1,6 +1,8 @@
 /** @module utils */
 'use strict';
 
+const raven = require('raven');
+
 module.exports = {
 
   /**
@@ -12,7 +14,10 @@ module.exports = {
   call(promise) {
     return promise
       .then(data => [null, data])
-      .catch(err => [err]);
+      .catch(err => {
+        raven.captureException(err);
+        return [err];
+      });
   },
 
   /**
