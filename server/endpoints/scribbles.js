@@ -50,7 +50,7 @@ module.exports = {
   async paginate(req, res) {
     let { page, per, owner_id } = req.body;
     if (!page) page = 1;
-    if (!per) per = 10;
+    if (!per) per = 12;
 
     const [all_err, all_data] = await call(Scribbles.findAll({ where: { owner_id } }));
     const [pagi_err, pagi_data] = await call(Scribbles.findAll({
@@ -182,7 +182,7 @@ module.exports = {
   async search(req, res) {
     let { page, per, term, owner_id } = req.body;
     if (!page) page = 1;
-    if (!per) per = 10;
+    if (!per) per = 12;
     if (!term || !owner_id)
       return respond(res, http_bad_request, 'Please provide a search term');
 

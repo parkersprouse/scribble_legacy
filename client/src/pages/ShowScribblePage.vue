@@ -68,7 +68,6 @@ export default {
         }
       });
     },
-
     showDeleteModal() {
       this.$dialog.confirm({
         title: 'Delete Scribble',

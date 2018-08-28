@@ -4,5 +4,6 @@ export default {
   http_bad_request: 400,
   http_unauthorized: 401,
   http_server_error: 500,
+  noop: () => {},
   server: process.env.VUE_APP_BACKEND_URL || '',
 };

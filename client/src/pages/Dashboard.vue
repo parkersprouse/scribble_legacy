@@ -52,13 +52,13 @@
         </div>
       </nav>
 
-      <custom-paginator :current='page' :itemsPerPage='per'
+      <custom-paginator v-if='scribbles.length > 0' :current='page' :itemsPerPage='per'
                         :onChange='clickPaginatorLink' :total='total'>
       </custom-paginator>
 
       <scribble-list :scribbles='scribbles' :is_search='!!searched_term' />
 
-      <custom-paginator :current='page' :itemsPerPage='per'
+      <custom-paginator v-if='scribbles.length > 0' :current='page' :itemsPerPage='per'
                         :onChange='clickPaginatorLink' :total='total'>
       </custom-paginator>
 
@@ -74,6 +74,7 @@
 <script>
 import api from '@/lib/api';
 import cookies from '@/lib/cookies';
+import constants from '@/lib/constants';
 import AddScribbleModal from '@/components/AddScribbleModal.vue';
 import ScribbleList from '@/components/ScribbleList.vue';
 
@@ -86,7 +87,7 @@ export default {
   data() {
     return {
       page: Number(this.$route.query.page) || 1,
-      per: Number(this.$route.query.per) || 10,
+      per: Number(this.$route.query.per) || 12,
       scribbles: null,
       search_term: '',
       searched_term: this.$route.query.q,
@@ -95,7 +96,7 @@ export default {
     };
   },
   mounted() {
-    let method = () => {};
+    let method = constants.noop;
     const body = { page: this.page, per: this.per };
 
     if (this.$route.query.q) {
@@ -121,7 +122,9 @@ export default {
   methods: {
     clickPaginatorLink(page) {
       let url = `/dashboard?page=${page}&per=${this.per}`;
-      if (this.searched_term) { url += `&q=${this.searched_term}`; }
+      if (this.searched_term) {
+        url += `&q=${this.searched_term}`;
+      }
       window.location.href = url;
     },
     performSearch() {

@@ -2,9 +2,9 @@
   <div v-if='!scribbles'>
   </div>
 
-  <div v-else-if='scribbles.length === 0' style='margin-top: 0.75rem'>
-    <span v-if='is_search'>No search results</span>
-    <span v-else>You have no scribbles</span>
+  <div v-else-if='scribbles.length === 0' class='notice'>
+    <h4 v-if='is_search' class='subtitle is-4'>No search results</h4>
+    <h4 v-else class='subtitle is-4'>You have no scribbles</h4>
   </div>
 
   <div v-else class='columns is-multiline scribble-list' style='margin-top: 0.75rem'>
@@ -41,3 +41,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.notice {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+</style>

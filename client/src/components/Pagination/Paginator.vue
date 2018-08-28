@@ -4,12 +4,12 @@
       <a class="pagination-previous"
         :disabled="!(current > 1)"
         @click="current > 1 ? onChange(current - 1) : null">
-        &larr; Previous
+        &LessLess; Previous
       </a>
       <a class="pagination-next"
         :disabled="!(size > 1 && current < size)"
         @click="size > 1 && current < size ? onChange(current + 1) : null">
-        Next &rarr;
+        Next &GreaterGreater;
       </a>
       <ul class="pagination-list">
         <component v-for="(element, i) in elements"
