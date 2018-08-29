@@ -18,6 +18,10 @@ const {
   respond
 } = require('../utils');
 
+/*
+ * search() and paginate() should be refacted to be one method before adding
+ * the logic for filtering by tags as well
+ */
 module.exports = {
 
   /**
