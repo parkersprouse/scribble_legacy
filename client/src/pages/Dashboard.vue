@@ -74,7 +74,6 @@
 <script>
 import api from '@/lib/api';
 import cookies from '@/lib/cookies';
-import constants from '@/lib/constants';
 import AddScribbleModal from '@/components/AddScribbleModal.vue';
 import ScribbleList from '@/components/ScribbleList.vue';
 
@@ -91,24 +90,24 @@ export default {
       scribbles: null,
       search_term: '',
       searched_term: this.$route.query.q,
+      tag_filter: this.$route.query.tag,
       show_add_scribble: false,
       total: null,
     };
   },
   mounted() {
-    let method = constants.noop;
     const body = { page: this.page, per: this.per };
 
-    if (this.$route.query.q) {
-      method = api.searchScribbles;
-      this.search_term = this.$route.query.q;
-      body.term = this.search_term;
-    } else {
-      method = api.paginateScribbles;
+    if (this.searched_term) {
+      this.search_term = this.searched_term;
+      body.term = this.searched_term;
+    }
+    if (this.tag_filter) {
+      body.tag = this.tag_filter;
     }
 
     api.decodeToken(cookies.getToken(), (_success, { content }) => {
-      method({ ...body, owner_id: content.id }, (success, response) => {
+      api.filterScribbles({ ...body, owner_id: content.id }, (success, response) => {
         if (success) {
           this.scribbles = response.content.scribbles;
           this.total = response.content.total;
@@ -129,7 +128,10 @@ export default {
     },
     performSearch() {
       if (this.search_term) {
-        window.location.href = `/dashboard?q=${this.search_term}`;
+        let url = `/dashboard?q=${this.search_term}`;
+        if (this.tag_filter)
+          url += `&tag=${this.tag_filter}`;
+        window.location.href = url;
       }
     },
   },

@@ -123,12 +123,8 @@ export default {
     doDelete(`/api/scribbles/${id}`, callback);
   },
 
-  searchScribbles(data, callback) {
-    post('/api/scribbles/search', data, callback);
-  },
-
-  paginateScribbles(data, callback) {
-    post('/api/scribbles/paginate', data, callback);
+  filterScribbles(data, callback) {
+    post('/api/scribbles/filter', data, callback);
   },
 
 };

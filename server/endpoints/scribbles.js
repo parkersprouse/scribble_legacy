@@ -44,31 +44,6 @@ module.exports = {
   },
 
   /**
-   * Gets a paginated context of a user's scribbles.
-   * @function
-   * @async
-   * @param {object} req - The client's request.
-   * @param {object} res - The server's response.
-   * @returns {void}
-   */
-  async paginate(req, res) {
-    let { page, per, owner_id } = req.body;
-    if (!page) page = 1;
-    if (!per) per = 12;
-
-    const [all_err, all_data] = await call(Scribbles.findAll({ where: { owner_id } }));
-    const [pagi_err, pagi_data] = await call(Scribbles.findAll({
-      where: { owner_id }, limit: per, offset: (page - 1) * per, order: ['created_at']
-    }));
-    if (all_err || pagi_err)
-      return respond(res, http_server_error, 'Failed to get scribbles');
-
-    const total = all_data.length;
-    const scribbles = pagi_data.map((scribble) => scribble.get({ plain: true }));
-    respond(res, http_ok, null, { scribbles, total });
-  },
-
-  /**
    * Finds a scribble by ID.
    * @function
    * @async
@@ -116,13 +91,13 @@ module.exports = {
    * @returns {void}
    */
   async add(req, res) {
-    let { body, title, owner_id } = req.body;
+    let { body, title, tags, owner_id } = req.body;
     if (!body)
       return respond(res, http_bad_request, 'Your scribble cannot be empty');
     if (!title)
       title = moment().format('MM/DD/YYYY h:mma');
 
-    const [err, data] = await call(Scribbles.create({ body, title, owner_id }));
+    const [err, data] = await call(Scribbles.create({ body, title, tags, owner_id }));
     if (err)
       return respond(res, http_server_error, 'Failed to create scribble');
 
@@ -175,24 +150,31 @@ module.exports = {
   },
 
   /**
-   * Gets a paginated context of a user's scribbles that contain the provided
-   * search term.
+   * Gets a paginated context of a user's scribbles, taking into consideration
+   * any search terms or tags provided to filter by.
    * @function
    * @async
    * @param {object} req - The client's request.
    * @param {object} res - The server's response.
    * @returns {void}
    */
-  async search(req, res) {
-    let { page, per, term, owner_id } = req.body;
+  async filter(req, res) {
+    let { page, per, term, tag, owner_id } = req.body;
     if (!page) page = 1;
     if (!per) per = 12;
-    if (!term || !owner_id)
-      return respond(res, http_bad_request, 'Please provide a search term');
 
-    const body = { body: { $iLike: `%${term}%` } };
-    const title = { title: { $iLike: `%${term}%` } };
-    const query = { [Op.or]: [body, title], owner_id };
+    const body_search = { body: { $iLike: `%${term}%` } };
+    const title_search = { title: { $iLike: `%${term}%` } };
+    const search = { [Op.or]: [body_search, title_search] };
+
+    const tag_filter = { tags: { $contains: [tag] } };
+
+    let query = { owner_id };
+    if (term)
+      query = { ...query, ...search };
+    if (tag)
+      query = { ...query, ...tag_filter };
+
     const [all_err, all_data] = await call(Scribbles.findAll({ where: query }));
     const [pagi_err, pagi_data] = await call(Scribbles.findAll({
       where: query, limit: per, offset: (page - 1) * per, order: ['created_at']
