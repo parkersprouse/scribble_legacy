@@ -20,10 +20,13 @@
             {{ scribble.body }}
           </div>
         </div>
-        <footer class='card-footer scribble-list-item-card-footer'>
-          <a :href='`/scribbles/${scribble.id}`'
-             class='card-footer-item scribble-list-item-footer-link'>View</a>
-          <!-- <a :href='`/scribbles/${scribble.id}/edit`' class='card-footer-item'>Edit</a> -->
+        <footer class='card-footer scribble-list-item-card-footer'
+                v-if='scribble.tags && scribble.tags.length > 0'>
+          <b-taglist class='card-footer-item'>
+            <b-tag type='is-info' v-for='tag in scribble.tags' :key='tag'>
+              <a href='#' @click.prevent='() => filterTag(tag)'>{{ tag }}</a>
+            </b-tag>
+          </b-taglist>
         </footer>
       </div>
     </div>
@@ -37,6 +40,13 @@ export default {
   methods: {
     goToScribble(id) {
       window.location.href = `/scribbles/${id}`;
+    },
+    filterTag(tag) {
+      let url = `/dashboard?tag=${tag}`;
+      if (this.$route.query.q) {
+        url += `&q=${this.$route.query.q}`;
+      }
+      window.location.href = url;
     },
   },
 };

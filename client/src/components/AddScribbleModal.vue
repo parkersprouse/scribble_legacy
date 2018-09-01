@@ -27,9 +27,21 @@
           </div>
         </div>
         <div class='field'>
+          <label class='label'>Tags</label>
+            <b-taginput
+              v-model='tags'
+              :data='all_tags'
+              autocomplete
+              :allow-new='true'
+              icon='tag'
+              type='is-info'
+              placeholder='Add a tag'>
+            </b-taginput>
+        </div>
+        <div class='field'>
           <label class='label'>Content <span class='required-label'>*</span></label>
           <div class='control'>
-            <textarea class="textarea" placeholder='Content' v-model='body'></textarea>
+            <textarea class='textarea' placeholder='Content' v-model='body'></textarea>
           </div>
         </div>
       </section>
@@ -54,20 +66,30 @@ export default {
       body: '',
       error: null,
       owner_id: null,
+      tags: [],
+      all_tags: [],
       title: '',
       submitting: false,
     };
   },
   mounted() {
-    api.decodeToken(cookies.getToken(), (success, response) => {
-      this.owner_id = response.content.id;
+    api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
+      this.owner_id = id_res.content.id;
+      api.getScribblesTags(this.owner_id, (tag_succ, tag_res) => {
+        this.all_tags = tag_res.content;
+      });
     });
   },
   methods: {
     submit() {
       this.error = null;
       this.submitting = true;
-      const data = { title: this.title, body: this.body, owner_id: this.owner_id };
+      const data = {
+        body: this.body,
+        owner_id: this.owner_id,
+        tags: this.tags,
+        title: this.title,
+      };
       api.addScribble(data, (success, response) => {
         if (success) {
           window.location.href = `/scribbles/${response.content.id}`;

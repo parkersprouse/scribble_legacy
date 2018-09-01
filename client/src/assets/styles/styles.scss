@@ -23,6 +23,19 @@ body {
   color: #1C9963;
 }
 
+.tag a,
+.tag a:hover,
+.tag a:focus {
+  color: white;
+  text-decoration: none;
+}
+
+.tags.card-footer-item {
+  justify-content: flex-start;
+  -webkit-box-pack: start;
+  -webkit-box-align: start;
+}
+
 @media screen and (max-width: 768px) {
   .mobile-fullwidth {
     width: 100%;
@@ -92,6 +105,7 @@ body {
 
 // -----------------------------------------------------------------------------
 // Scribble things
+//
 
 .scribble-body {
   white-space:   pre-wrap;
@@ -100,13 +114,18 @@ body {
   border-radius: 5px;
 }
 
+.scribble-tags {
+  margin-top: 0.5rem;
+}
+
 .scribble-controls {
   text-align: center;
   margin-top: 1rem;
 }
 
 @media screen and (min-width: 1024px) {
-  .scribble-body {
+  .scribble-body,
+  .scribble-tags {
     max-width:    50%;
     margin-left:  auto;
     margin-right: auto;
@@ -130,20 +149,20 @@ body {
   background-color: rgba(248, 248, 248, .9);
 }
 
-@media screen and (min-width: 769px) {
-  .scribble-list .card {
-    height: 100%;
-  }
-
-  .scribble-list .card-content {
-    height: 50%;
-  }
-
-  .scribble-list .card-header,
-  .scribble-list .card-footer {
-    height: 25%;
-  }
-}
+// @media screen and (min-width: 769px) {
+//   .scribble-list .card {
+//     height: 100%;
+//   }
+//
+//   .scribble-list .card-content {
+//     height: 50%;
+//   }
+//
+//   .scribble-list .card-header,
+//   .scribble-list .card-footer {
+//     height: 25%;
+//   }
+// }
 
 .add-scribble-modal-footer {
   justify-content: flex-end;

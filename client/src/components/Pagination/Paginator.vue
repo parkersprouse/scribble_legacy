@@ -1,23 +1,29 @@
 <template>
-  <div id="pagination">
-    <nav class="pagination is-centered">
-      <a class="pagination-previous"
-        :disabled="!(current > 1)"
-        @click="current > 1 ? onChange(current - 1) : null">
-        &LessLess; Previous
+  <div id='pagination'>
+    <nav class='pagination is-centered'>
+      <a class='button pagination-previous'
+        :disabled='!(current > 1)'
+        @click='current > 1 ? onChange(current - 1) : null'>
+        <span class='icon is-small'>
+          <i class='fas fa-angle-left'></i>
+        </span>
+        <span>Previous</span>
       </a>
-      <a class="pagination-next"
-        :disabled="!(size > 1 && current < size)"
-        @click="size > 1 && current < size ? onChange(current + 1) : null">
-        Next &GreaterGreater;
+      <a class='button pagination-next'
+        :disabled='!(size > 1 && current < size)'
+        @click='size > 1 && current < size ? onChange(current + 1) : null'>
+        <span>Next</span>
+        <span class='icon is-small'>
+          <i class='fas fa-angle-right'></i>
+        </span>
       </a>
-      <ul class="pagination-list">
-        <component v-for="(element, i) in elements"
+      <ul class='pagination-list'>
+        <component v-for='(element, i) in elements'
                   :key='i'
-                  :is="element.type"
-                  :page="element.page"
-                  :current="current"
-                  :onChange="onChange"/>
+                  :is='element.type'
+                  :page='element.page'
+                  :current='current'
+                  :onChange='onChange'/>
       </ul>
     </nav>
   </div>

@@ -15,6 +15,17 @@
         </div>
       </nav>
 
+      <nav v-if='tag_filter' class='level'>
+        <div class='level-item has-text-centered'>
+          <div>
+            <b-tag type='is-info' size='is-medium'
+                   closable @close="removeTagFilter">
+              {{ tag_filter }}
+            </b-tag>
+          </div>
+        </div>
+      </nav>
+
       <nav class='level'>
         <div class='level-item has-text-centered'>
           <div class='mobile-fullwidth'>
@@ -33,7 +44,7 @@
       </nav>
 
       <nav class='level'>
-        <div v-if='searched_term' class='level-item has-text-centered'>
+        <div v-if='searched_term || tag_filter' class='level-item has-text-centered'>
           <div class='mobile-fullwidth'>
             <a class='button is-large is-primary is-outlined mobile-fullwidth' href='/dashboard'>
               <b-icon icon='angle-left' size='is-small'></b-icon>
@@ -124,16 +135,27 @@ export default {
       if (this.searched_term) {
         url += `&q=${this.searched_term}`;
       }
+      if (this.tag_filter) {
+        url += `&tag=${this.tag_filter}`;
+      }
       window.location.href = url;
     },
     performSearch() {
       if (this.search_term) {
         let url = `/dashboard?q=${this.search_term}`;
-        if (this.tag_filter)
+        if (this.tag_filter) {
           url += `&tag=${this.tag_filter}`;
+        }
         window.location.href = url;
       }
     },
+    removeTagFilter() {
+      let url = '/dashboard';
+      if (this.searched_term) {
+        url += `?q=${this.searched_term}`;
+      }
+      window.location.href = url;
+    }
   },
 };
 </script>

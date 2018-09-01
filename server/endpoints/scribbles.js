@@ -83,6 +83,42 @@ module.exports = {
   },
 
   /**
+   * Gets all of the tags that the user has used on previously created
+   * scribbles.
+   * @function
+   * @async
+   * @param {object} req - The client's request.
+   * @param {object} res - The server's response.
+   * @returns {void}
+   */
+  async getOwnerTags(req, res) {
+    const { owner_id } = req.params;
+
+    const [err, data] = await call(Scribbles.findAll({
+      where: { owner_id }, attributes: ['tags']
+    }));
+    if (err)
+      return respond(res, http_server_error, 'Failed to get tags');
+
+    let all_tags = [];
+    data.forEach(({ tags }) => {
+      if (tags) {
+        all_tags = all_tags.concat(tags);
+      }
+    });
+
+    let uniq_tags = [];
+    all_tags.forEach(tag => {
+      if (uniq_tags.indexOf(tag) === -1) {
+        uniq_tags.push(tag);
+      }
+    });
+
+    uniq_tags.sort();
+    respond(res, http_ok, null, uniq_tags);
+  },
+
+  /**
    * Creates a new scribble.
    * @function
    * @async

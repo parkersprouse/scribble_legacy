@@ -111,6 +111,10 @@ export default {
     get(`/api/scribbles/owner/${id}`, callback);
   },
 
+  getScribblesTags(id, callback) {
+    get(`/api/scribbles/tags/${id}`, callback);
+  },
+
   addScribble(data, callback) {
     post('/api/scribbles', data, callback);
   },

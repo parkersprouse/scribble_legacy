@@ -29,6 +29,18 @@
           </div>
         </div>
         <div class='field'>
+          <label class='label'>Tags</label>
+            <b-taginput
+              v-model="tags"
+              :data="all_tags"
+              autocomplete
+              :allow-new="true"
+              icon="tag"
+              type="is-info"
+              placeholder="Add a tag">
+            </b-taginput>
+        </div>
+        <div class='field'>
           <label class='label'>Content <span class='required-label'>*</span></label>
           <div class='control'>
             <textarea class="textarea" placeholder='Content' v-model='body'></textarea>
@@ -47,37 +59,51 @@
 
 <script>
 import api from '@/lib/api';
+import cookies from '@/lib/cookies';
 
 export default {
   name: 'edit-scribble-modal',
   props: ['scribble'],
   data() {
     return {
+      all_tags: [],
       body: '',
       error: null,
-      title: '',
       submitting: false,
       success: false,
+      tags: [],
+      title: '',
     };
   },
   mounted() {
     this.title = this.$props.scribble.title;
     this.body = this.$props.scribble.body;
+    this.tags = this.$props.scribble.tags;
+
+    api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
+      api.getScribblesTags(id_res.content.id, (tag_succ, tag_res) => {
+        this.all_tags = tag_res.content;
+      });
+    });
   },
   methods: {
     submit() {
       this.error = null;
       this.submitting = true;
       this.success = false;
-      const data = { body: this.body, id: this.$props.scribble.id, title: this.title };
+      const data = {
+        body: this.body,
+        id: this.$props.scribble.id,
+        tags: this.tags,
+        title: this.title,
+      };
       api.updateScribble(data, (success, response) => {
         if (success) {
-          this.submitting = false;
           this.success = true;
         } else {
           this.error = response.message;
-          this.submitting = false;
         }
+        this.submitting = false;
       });
     },
   },

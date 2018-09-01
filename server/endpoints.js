@@ -26,6 +26,7 @@ router.delete('/scribbles/:id', scribbles.delete);
 router.get('/scribbles', scribbles.getAll);
 router.get('/scribbles/id/:id', scribbles.getID);
 router.get('/scribbles/owner/:owner_id', scribbles.getOwnerID);
+router.get('/scribbles/tags/:owner_id', scribbles.getOwnerTags);
 router.post('/scribbles', scribbles.add);
 router.patch('/scribbles', scribbles.update);
 router.post('/scribbles/filter', scribbles.filter);
