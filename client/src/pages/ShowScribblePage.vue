@@ -27,7 +27,7 @@
         <div class='scribble-tags' v-if='scribble.tags && scribble.tags.length > 0'>
           <b-taglist>
             <b-tag type='is-info' v-for='tag in scribble.tags' :key='tag'>
-              <a  :href='`/dashboard?tag=${tag}`'>
+              <a :href='`/dashboard?tag=${tag}`'>
                 {{ tag }}
               </a>
             </b-tag>
@@ -94,7 +94,7 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         iconPack: 'fa',
-        onConfirm: () => this.doDelete(),
+        onConfirm: this.doDelete,
       });
     },
   },
