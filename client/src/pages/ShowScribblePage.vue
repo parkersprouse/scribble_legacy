@@ -7,8 +7,17 @@
       &nbsp;<b-loading :is-full-page='false' :active='true'></b-loading>
     </div>
 
-    <div v-else-if='scribble === -1' class='container main-content has-text-centered'>
-      Scribble not found
+    <div v-else-if='scribble === -1' class='container main-content'>
+      <div class='content has-text-centered'>
+        <i class='fa fa-times-circle fa-5x'></i>
+        <h2 class='title is-2' style='margin-top: 1rem;'>Scribble Not Found</h2>
+        <div class='mobile-fullwidth'>
+          <a class='button is-large is-primary is-outlined mobile-fullwidth' href='/dashboard'>
+            <b-icon icon='angle-left' size='is-small'></b-icon>
+            <span>Back</span>
+          </a>
+        </div>
+      </div>
     </div>
 
     <div v-else class='container main-content'>

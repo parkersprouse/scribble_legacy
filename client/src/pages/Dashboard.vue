@@ -10,7 +10,7 @@
       <nav v-if='searched_term' class='level'>
         <div class='level-item has-text-centered'>
           <div>
-            <h2 class="title is-2">Search for: {{ searched_term }}</h2>
+            <h2 class='title is-2'>Search for: {{ searched_term }}</h2>
           </div>
         </div>
       </nav>
@@ -18,8 +18,8 @@
       <nav v-if='tag_filter' class='level'>
         <div class='level-item has-text-centered'>
           <div>
-            <b-tag type='is-info' size='is-medium'
-                   closable @close="removeTagFilter">
+            <b-tag type='is-info' size='is-large'
+                   closable @close='removeTagFilter'>
               {{ tag_filter }}
             </b-tag>
           </div>
@@ -103,7 +103,7 @@ export default {
       searched_term: this.$route.query.q,
       tag_filter: this.$route.query.tag,
       show_add_scribble: false,
-      total: null,
+      total: 0,
     };
   },
   mounted() {
@@ -124,7 +124,6 @@ export default {
           this.total = response.content.total;
         } else {
           this.scribbles = [];
-          this.total = 0;
         }
       });
     });
@@ -155,7 +154,7 @@ export default {
         url += `?q=${this.searched_term}`;
       }
       window.location.href = url;
-    }
+    },
   },
 };
 </script>
