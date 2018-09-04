@@ -23,6 +23,7 @@
     <div v-else class='container main-content'>
       <div class='content'>
         <h2 class='title is-2 is-spaced has-text-centered'>{{ scribble.title }}</h2>
+        <h6 class='subtitle is-6 is-spaced has-text-centered'>{{ date }}</h6>
         <div class='scribble-body'>{{ scribble.body }}</div>
         <div class='scribble-tags' v-if='scribble.tags && scribble.tags.length > 0'>
           <b-taglist>
@@ -55,6 +56,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 import api from '@/lib/api';
 import EditScribbleModal from '@/components/EditScribbleModal.vue';
 
@@ -96,6 +99,11 @@ export default {
         iconPack: 'fa',
         onConfirm: this.doDelete,
       });
+    },
+  },
+  computed: {
+    date() {
+      return moment(this.scribble.created_at).format('MM/DD/YYYY h:mma');
     },
   },
 };

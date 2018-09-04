@@ -5,6 +5,7 @@ module.exports = {
     '@vue/airbnb'
   ],
   'rules': {
-    'camelcase': 'off'
+    'camelcase': 'off',
+    'import/no-extraneous-dependencies': 'off'
   }
 }
