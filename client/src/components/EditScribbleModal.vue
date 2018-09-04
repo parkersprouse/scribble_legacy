@@ -31,26 +31,26 @@
         <div class='field'>
           <label class='label'>Tags</label>
             <b-taginput
-              v-model="tags"
-              :data="all_tags"
+              v-model='tags'
+              :data='all_tags'
               autocomplete
-              :allow-new="true"
-              icon="tag"
-              type="is-info"
-              placeholder="Add a tag">
+              :allow-new='true'
+              icon='tag'
+              type='is-info'
+              placeholder='Add a tag'>
             </b-taginput>
         </div>
         <div class='field'>
           <label class='label'>Content <span class='required-label'>*</span></label>
           <div class='control'>
-            <textarea class="textarea" placeholder='Content' v-model='body'></textarea>
+            <textarea class='textarea' placeholder='Content' v-model='body'></textarea>
           </div>
         </div>
       </section>
 
       <footer class='modal-card-foot add-scribble-modal-footer'>
         <button class='button' type='button' @click='$parent.close()'>Close</button>
-        <button class='button is-primary' :class='{ "is-loading": submitting }'>Update</button>
+        <button class='button is-primary' :class="{ 'is-loading': submitting }">Update</button>
       </footer>
 
     </div>

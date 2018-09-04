@@ -48,7 +48,7 @@
 
       <footer class='modal-card-foot add-scribble-modal-footer'>
         <button class='button' type='button' @click='$parent.close()'>Close</button>
-        <button class='button is-primary' :class='{ "is-loading": submitting }'>Create</button>
+        <button class='button is-primary' :class="{ 'is-loading': submitting }">Create</button>
       </footer>
 
     </div>

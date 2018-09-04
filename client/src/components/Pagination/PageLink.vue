@@ -1,15 +1,13 @@
 <template>
   <li>
     <a :class="['pagination-link', { 'is-current': current === page }]"
-        @click="onChange(page)">
+        @click='onChange(page)'>
         {{ page }}
     </a>
   </li>
 </template>
 
 <script>
-/* eslint-disable */
-
 export default {
   name: 'page-link',
   props: {

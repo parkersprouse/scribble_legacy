@@ -39,7 +39,7 @@
             <b-icon icon='edit' size='is-small' pack='far'></b-icon>
             <span>Edit</span>
           </button>
-          <button class='button is-danger' @click="showDeleteModal">
+          <button class='button is-danger' @click='showDeleteModal'>
             <b-icon icon='trash-alt' size='is-small' pack='far'></b-icon>
             <span>Delete</span>
           </button>

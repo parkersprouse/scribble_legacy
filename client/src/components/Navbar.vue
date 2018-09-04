@@ -1,7 +1,7 @@
 <template>
-  <div class='navbar-holder' :class='{ "navbar-open": navbar_open }'>
-    <div class='hamburger-holder' :class='{ "navbar-open": navbar_open }'>
-      <button class='hamburger hamburger--squeeze' :class='{ "is-active": navbar_open }'
+  <div class='navbar-holder' :class="{ 'navbar-open': navbar_open }">
+    <div class='hamburger-holder' :class="{ 'navbar-open': navbar_open }">
+      <button class='hamburger hamburger--squeeze' :class="{ 'is-active': navbar_open }"
               type='button' @click='toggleNavbar'>
         <span class='hamburger-box'>
           <span class='hamburger-inner'></span>

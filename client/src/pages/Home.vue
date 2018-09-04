@@ -32,13 +32,13 @@
             <div class='columns is-centered'>
               <div class='column is-separated'>
                 <div class='three-quarters-width'>
-                  <h3 id='login'>Login</h3>
-                  <login-form :next="$route.query.n" />
+                  <h3>Login</h3>
+                  <login-form :next='$route.query.n' />
                 </div>
               </div>
               <div class='column'>
                 <div class='three-quarters-width'>
-                  <h3 id='register'>Register</h3>
+                  <h3>Register</h3>
                   <register-form />
                 </div>
               </div>
