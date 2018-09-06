@@ -50,7 +50,7 @@
 
     <b-modal :active.sync='show_edit_scribble' @onCancel='show_edit_scribble = false'
              has-modal-card>
-      <edit-scribble-modal :scribble='scribble' />
+      <edit-scribble-modal :scribble.sync='scribble' />
     </b-modal>
   </div>
 </template>

@@ -78,7 +78,9 @@ export default {
   mounted() {
     this.title = this.$props.scribble.title;
     this.body = this.$props.scribble.body;
-    this.tags = this.$props.scribble.tags;
+    // we want a copy of the array so that the scribble itself isn't getting
+    // updated as it is edited
+    this.tags = this.$props.scribble.tags.slice(0);
 
     api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
       api.getScribblesTags(id_res.content.id, (tag_succ, tag_res) => {
@@ -100,6 +102,7 @@ export default {
       api.updateScribble(data, (success, response) => {
         if (success) {
           this.success = true;
+          this.$emit('update:scribble', response.content);
         } else {
           this.error = response.message;
         }
