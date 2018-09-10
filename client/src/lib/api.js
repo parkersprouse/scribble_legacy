@@ -74,11 +74,11 @@ export default {
     get('/api/users', callback);
   },
 
-  getUsersID(id, callback) {
+  getUserID(id, callback) {
     get(`/api/users/id/${id}`, callback);
   },
 
-  getUsersEmail(email, callback) {
+  getUserEmail(email, callback) {
     get(`/api/users/email/${email}`, callback);
   },
 

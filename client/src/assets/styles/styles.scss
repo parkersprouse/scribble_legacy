@@ -89,6 +89,12 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
+  .half-width {
+    width:     50%;
+    max-width: 50%;
+    margin:    auto;
+  }
+
   .three-quarters-width {
     width:     75%;
     max-width: 75%;

@@ -12,7 +12,7 @@
         <p class='modal-card-title'>New Scribble</p>
       </header>
 
-      <section class='modal-card-body'>
+      <section class='modal-card-body' style='overflow: visible;'>
         <article v-if='error' class='message is-danger'>
           <div class='message-body'>
             <p>
@@ -27,6 +27,12 @@
           </div>
         </div>
         <div class='field'>
+          <label class='label'>Content <span class='required-label'>*</span></label>
+          <div class='control'>
+            <textarea class='textarea' placeholder='Content' v-model='body'></textarea>
+          </div>
+        </div>
+        <div class='field'>
           <label class='label'>Tags</label>
             <b-taginput
               v-model='tags'
@@ -37,12 +43,6 @@
               type='is-info'
               placeholder='Add a tag'>
             </b-taginput>
-        </div>
-        <div class='field'>
-          <label class='label'>Content <span class='required-label'>*</span></label>
-          <div class='control'>
-            <textarea class='textarea' placeholder='Content' v-model='body'></textarea>
-          </div>
         </div>
       </section>
 

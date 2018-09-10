@@ -15,6 +15,9 @@
           <a href='/'><b-icon icon='home' size='is-small'></b-icon> Dashboard</a>
         </li>
         <li>
+          <a href='/profile'><b-icon icon='user' size='is-small'></b-icon> Profile</a>
+        </li>
+        <li>
           <a href='/logout'><b-icon icon='sign-out-alt' size='is-small'></b-icon> Logout</a>
         </li>
       </ul>

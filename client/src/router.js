@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './pages/Home.vue';
 import Dashboard from './pages/Dashboard.vue';
 import ShowScribblePage from './pages/ShowScribblePage.vue';
+import ProfilePage from './pages/ProfilePage.vue';
 import NotFound from './pages/NotFound.vue';
 import api from './lib/api';
 import cookies from './lib/cookies';
@@ -58,6 +59,12 @@ export default new Router({
       path: '/scribbles/:id',
       name: 'scribble_show',
       component: ShowScribblePage,
+      beforeEnter: requiresAuth,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfilePage,
       beforeEnter: requiresAuth,
     },
     {
