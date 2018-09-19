@@ -23,7 +23,7 @@
         <footer class='card-footer scribble-list-item-card-footer'
                 v-if='scribble.tags && scribble.tags.length > 0'>
           <b-taglist class='card-footer-item'>
-            <b-tag type='is-info' v-for='tag in scribble.tags' :key='tag'>
+            <b-tag type='is-dark' v-for='tag in scribble.tags' :key='tag'>
               <a href='#' @click.prevent='() => filterTag(tag)'>{{ tag }}</a>
             </b-tag>
           </b-taglist>

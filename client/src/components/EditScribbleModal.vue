@@ -42,7 +42,7 @@
               autocomplete
               :allow-new='true'
               icon='tag'
-              type='is-info'
+              type='is-dark'
               placeholder='Add a tag'>
             </b-taginput>
         </div>
@@ -82,9 +82,9 @@ export default {
     // updated as it is edited
     this.tags = this.$props.scribble.tags.slice(0);
 
-    api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
-      api.getScribblesTags(id_res.content.id, (tag_succ, tag_res) => {
-        this.all_tags = tag_res.content;
+    api.decodeToken(cookies.getToken(), (id_success, id_response) => {
+      api.getScribblesTags(id_response.content.id, (tag_success, tag_response) => {
+        this.all_tags = tag_response.content;
       });
     });
   },

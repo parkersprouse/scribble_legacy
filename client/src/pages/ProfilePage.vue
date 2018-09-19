@@ -87,19 +87,19 @@ export default {
   data() {
     return {
       editing_email: false,
-      new_email: '',
       editing_name: false,
-      new_name: '',
       error: false,
+      new_email: '',
+      new_name: '',
       user: null,
     };
   },
   mounted() {
-    api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
-      if (id_succ) {
-        api.getUserID(id_res.content.id, (user_succ, user_res) => {
-          if (user_succ) {
-            this.user = user_res.content;
+    api.decodeToken(cookies.getToken(), (id_success, id_response) => {
+      if (id_success) {
+        api.getUserID(id_response.content.id, (user_success, user_response) => {
+          if (user_success) {
+            this.user = user_response.content;
           } else {
             this.error = true;
             this.user = -1;
@@ -117,7 +117,7 @@ export default {
     },
     saveEmail() {
       this.editing_email = false;
-    }
+    },
   },
 };
 </script>

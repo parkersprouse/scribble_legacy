@@ -40,7 +40,7 @@
               autocomplete
               :allow-new='true'
               icon='tag'
-              type='is-info'
+              type='is-dark'
               placeholder='Add a tag'>
             </b-taginput>
         </div>
@@ -73,10 +73,10 @@ export default {
     };
   },
   mounted() {
-    api.decodeToken(cookies.getToken(), (id_succ, id_res) => {
-      this.owner_id = id_res.content.id;
-      api.getScribblesTags(this.owner_id, (tag_succ, tag_res) => {
-        this.all_tags = tag_res.content;
+    api.decodeToken(cookies.getToken(), (id_success, id_response) => {
+      this.owner_id = id_response.content.id;
+      api.getScribblesTags(this.owner_id, (tag_success, tag_response) => {
+        this.all_tags = tag_response.content;
       });
     });
   },

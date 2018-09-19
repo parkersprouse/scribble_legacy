@@ -18,10 +18,14 @@
       <nav v-if='tag_filter' class='level'>
         <div class='level-item has-text-centered'>
           <div>
-            <b-tag type='is-info' size='is-large'
-                   closable @close='removeTagFilter'>
-              {{ tag_filter }}
-            </b-tag>
+            <div class='tags has-addons'>
+              <span class='tag is-dark is-large'>{{ tag_filter }}</span>
+              <b-tooltip label='Remove Tag Filter' type='is-dark' animated>
+                <a role='button' class='tag is-dark is-delete is-large'
+                  @click='removeTagFilter'>
+                </a>
+              </b-tooltip>
+            </div>
           </div>
         </div>
       </nav>

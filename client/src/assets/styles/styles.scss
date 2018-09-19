@@ -111,7 +111,6 @@ body {
 
 // -----------------------------------------------------------------------------
 // Scribble things
-//
 
 .scribble-body {
   white-space:   pre-wrap;
@@ -200,6 +199,85 @@ body {
 .scribble-list-item-card:hover .scribble-list-item-footer-link {
   color: #7957d5;
   font-weight: bold;
+}
+
+
+// -----------------------------------------------------------------------------
+// Tags as links
+
+a.tag.is-black:hover {
+  background-color: #040404;
+}
+a.tag.is-black:active,
+a.tag.is-black:focus {
+  background-color: #000;
+}
+
+a.tag.is-danger:hover {
+  background-color: #ff2b56;
+}
+a.tag.is-danger:active,
+a.tag.is-danger:focus {
+  background-color: #ff1f4b;
+}
+
+a.tag.is-dark:hover {
+  background-color: #2f2f2f;
+}
+a.tag.is-dark:active,
+a.tag.is-dark:focus {
+  background-color: #292929;
+}
+
+a.tag.is-info:hover {
+  background-color: #1496ed;
+}
+a.tag.is-info:active,
+a.tag.is-info:focus {
+  background-color: #118fe4;
+}
+
+a.tag.is-light:hover {
+  background-color: #eee;
+}
+a.tag.is-light:active,
+a.tag.is-light:focus {
+  background-color: #e8e8e8;
+}
+
+a.tag.is-link:hover,
+a.tag.is-primary:hover {
+  background-color: #714dd2;
+}
+a.tag.is-link:active,
+a.tag.is-link:focus,
+a.tag.is-primary:active,
+a.tag.is-primary:focus {
+  background-color: #6943d0;
+}
+
+a.tag.is-success:hover {
+  background-color: #22c65b;
+}
+a.tag.is-success:active,
+a.tag.is-success:focus {
+  background-color: #20bc56;
+}
+
+a.tag.is-warning:hover {
+  background-color: #ffdb4a;
+}
+a.tag.is-warning:active,
+a.tag.is-warning:focus {
+  background-color: #ffd83d;
+}
+
+a.tag.is-white:hover {
+  background-color: #f9f9f9;
+}
+a.tag.is-white:active,
+a.tag.is-white:focus {
+  background-color: #f2f2f2;
 }
 
 

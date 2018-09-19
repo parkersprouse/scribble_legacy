@@ -29,7 +29,7 @@
         <div class='scribble-body'>{{ scribble.body }}</div>
         <div class='scribble-tags' v-if='scribble.tags && scribble.tags.length > 0'>
           <b-taglist>
-            <b-tag type='is-info' v-for='tag in scribble.tags' :key='tag'>
+            <b-tag type='is-dark' v-for='tag in scribble.tags' :key='tag'>
               <a :href='`/dashboard?tag=${tag}`'>
                 {{ tag }}
               </a>
