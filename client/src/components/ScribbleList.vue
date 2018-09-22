@@ -3,7 +3,7 @@
   </div>
 
   <div v-else-if='scribbles.length === 0' class='notice'>
-    <h4 v-if='is_search' class='subtitle is-4'>No search results</h4>
+    <h4 v-if='is_search' class='subtitle is-4'>No Scribbles Found</h4>
     <h4 v-else class='subtitle is-4'>You have no scribbles</h4>
   </div>
 

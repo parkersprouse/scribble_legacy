@@ -280,6 +280,13 @@ a.tag.is-white:focus {
   background-color: #f2f2f2;
 }
 
+a.tag.is-delete:hover,
+a.tag.is-delete:active,
+a.tag.is-delete:focus, {
+  background-color: #ff2b56;
+  color: white;
+}
+
 
 // -----------------------------------------------------------------------------
 // Sliding Navbar

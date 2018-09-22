@@ -29,7 +29,6 @@
           </div>
         </div>
       </nav>
-
       <nav class='level'>
         <div class='level-item has-text-centered'>
           <div class='mobile-fullwidth'>
@@ -71,7 +70,7 @@
                         :onChange='clickPaginatorLink' :total='total'>
       </custom-paginator>
 
-      <scribble-list :scribbles='scribbles' :is_search='!!searched_term' />
+      <scribble-list :scribbles='scribbles' :is_search='searched_term || tag_filter' />
 
       <custom-paginator v-if='scribbles.length > 0' :current='page' :itemsPerPage='per'
                         :onChange='clickPaginatorLink' :total='total'>
