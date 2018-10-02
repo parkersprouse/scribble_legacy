@@ -1,6 +1,6 @@
 import Buefy from 'buefy';
 import Vue from 'vue';
-import 'buefy/lib/buefy.css';
+import './assets/styles/buefy.min.css';
 
 import App from './App.vue';
 import router from './router';

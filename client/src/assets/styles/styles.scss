@@ -23,19 +23,6 @@ body {
   color: #1C9963;
 }
 
-.tag a,
-.tag a:hover,
-.tag a:focus {
-  color: white;
-  text-decoration: none;
-}
-
-.tags.card-footer-item {
-  justify-content: flex-start;
-  -webkit-box-pack: start;
-  -webkit-box-align: start;
-}
-
 @media screen and (max-width: 768px) {
   .mobile-fullwidth {
     width: 100%;
@@ -108,6 +95,7 @@ body {
     margin-right: 0.5rem;
   }
 }
+
 
 // -----------------------------------------------------------------------------
 // Scribble things
@@ -204,6 +192,24 @@ body {
 
 // -----------------------------------------------------------------------------
 // Tags as links
+
+.tag a,
+.tag a:hover,
+.tag a:focus {
+  color: white;
+  text-decoration: none;
+}
+
+.tag.is-delete {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.tags.card-footer-item {
+  justify-content: flex-start;
+  -webkit-box-pack: start;
+  -webkit-box-align: start;
+}
 
 a.tag.is-black:hover {
   background-color: #040404;

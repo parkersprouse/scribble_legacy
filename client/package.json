@@ -13,15 +13,15 @@
     "npm": "6.1.0"
   },
   "dependencies": {
-    "buefy": "^0.6.6",
+    "buefy": "^0.6.7",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0",
-    "@vue/cli-plugin-eslint": "^3.0.0",
-    "@vue/cli-service": "^3.0.0",
-    "@vue/eslint-config-airbnb": "^3.0.0",
+    "@vue/cli-plugin-babel": "^3.0.4",
+    "@vue/cli-plugin-eslint": "^3.0.4",
+    "@vue/cli-service": "^3.0.4",
+    "@vue/eslint-config-airbnb": "^3.0.4",
     "node-sass": "^4.9.3",
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.17"
