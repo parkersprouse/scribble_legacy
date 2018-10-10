@@ -63,8 +63,9 @@
               <div class='field'>
                 <div class='control is-expanded has-icons-left'>
                   <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
-                  <input v-model.trim='password_current' class='input'
-                         placeholder='Current Password' type='password' />
+                  <b-input type='password' v-model.trim='password_current'
+                           placeholder='Current Password' password-reveal>
+                  </b-input>
                 </div>
               </div>
             </div>
@@ -78,8 +79,9 @@
               <div class='field'>
                 <div class='control is-expanded has-icons-left'>
                   <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
-                  <input v-model.trim='password_new' class='input'
-                         placeholder='New Password' type='password' />
+                  <b-input type='password' v-model.trim='password_new'
+                           placeholder='New Password' password-reveal>
+                  </b-input>
                 </div>
               </div>
             </div>
@@ -93,8 +95,9 @@
               <div class='field'>
                 <div class='control is-expanded has-icons-left'>
                   <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
-                  <input v-model.trim='password_new_confirm' class='input'
-                         placeholder='Confirm New Password' type='password' />
+                  <b-input type='password' v-model.trim='password_new_confirm'
+                           placeholder='Confirm New Password' password-reveal>
+                  </b-input>
                 </div>
               </div>
             </div>
@@ -202,9 +205,7 @@ export default {
 </script>
 
 <style>
-
 #change-password-form {
   margin-top: 1rem;
 }
-
 </style>

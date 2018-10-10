@@ -3,11 +3,10 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const validator = require('validator');
+const isEmail = require('validator/lib/isEmail');
 
 const config = require('../config');
 const {
-  db_err_duplicate,
   http_ok,
   http_no_content,
   http_bad_request,
@@ -119,7 +118,7 @@ module.exports = {
     // data[1][0].dataValues is the object containing the values of the returned row
     const { id, email } = req.body;
 
-    if (email !== undefined && !validator.isEmail(email))
+    if (email !== undefined && !isEmail(email))
       return respond(res, http_bad_request, 'Your e-mail must be valid');
 
     const [err, data] = await call(Users.update(

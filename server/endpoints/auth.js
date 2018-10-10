@@ -3,7 +3,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const validator = require('validator');
+const isEmail = require('validator/lib/isEmail');
 
 const config = require('../config');
 const Users = require('../models/users');
@@ -61,7 +61,7 @@ module.exports = {
     const { confirm_password, email, name, password } = req.body;
     if (!email || !password || !confirm_password)
       return respond(res, http_bad_request, 'Please make sure all required fields are filled out');
-    else if (!validator.isEmail(email))
+    else if (!isEmail(email))
       return respond(res, http_bad_request, 'Please make sure your e-mail is valid');
     else if (password !== confirm_password)
       return respond(res, http_bad_request, 'Please make sure the passwords match');
