@@ -90,6 +90,10 @@ export default {
     patch('/api/users', data, callback);
   },
 
+  updateUserPassword(data, callback) {
+    patch('/api/users/password', data, callback);
+  },
+
   deleteUser(id, callback) {
     doDelete(`/api/users/${id}`, callback);
   },

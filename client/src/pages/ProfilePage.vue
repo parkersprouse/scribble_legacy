@@ -12,60 +12,101 @@
     </div>
 
     <div v-else class='container main-content'>
-      <div class='profile-box half-width mobile-fullwidth'>
+      <div class='profile-box half-width mobile-fullwidth' id='change-info-form'>
+        <form @submit.prevent='updateInfo'>
+          <!-- Editing Name -->
+          <div class='columns is-mobile'>
+            <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+              Name
+            </div>
+            <div class='column'>
+              <div class='field'>
+                <div class='control is-expanded'>
+                  <input v-model.trim='name' class='input'
+                         placeholder='Name' type='text' />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Editing E-mail -->
+          <div class='columns is-mobile'>
+            <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+              E-mail
+            </div>
+            <div class='column'>
+              <div class='field'>
+                <div class='control is-expanded'>
+                  <input v-model.trim='email' class='input'
+                         placeholder='E-mail' type='email' />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Submit Info -->
+          <div class='has-text-centered'>
+            <button class='button is-primary' :class="{ 'is-loading': submitting_info }"
+                    type='submit'>
+              Update Info
+            </button>
+          </div>
+        </form>
+      </div>
 
-        <div class='columns is-mobile'>
-          <div class='column is-one-quarter has-text-right has-text-weight-bold'>
-            Name
-          </div>
-          <div class='column'>
-            <!-- Editing Name -->
-            <div v-if='editing_name' class='field has-addons'>
-              <div class='control is-expanded'>
-                <input v-model.trim='new_name' class='input'
-                       placeholder='Name' type='text' />
-              </div>
-              <div class='control'>
-                <button class='button is-primary' @click='saveName'>
-                  Save
-                </button>
-              </div>
+      <div class='profile-box half-width mobile-fullwidth' id='change-password-form'>
+        <form @submit.prevent='updatePassword'>
+          <!-- Current Password -->
+          <div class='columns is-mobile'>
+            <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+              Current Password
             </div>
-            <!-- Viewing Name -->
-            <div v-else @click='editing_name = true' class='clickable'>
-              <b-tooltip label='Click to edit' type='is-dark' animated>
-                <span>{{ user.name }}</span>
-              </b-tooltip>
-            </div>
-          </div>
-        </div>
-
-        <div class='columns is-mobile'>
-          <div class='column is-one-quarter has-text-right has-text-weight-bold'>
-            E-mail
-          </div>
-          <div class='column'>
-            <!-- Editing E-mail -->
-            <div v-if='editing_email' class='field has-addons'>
-              <div class='control is-expanded'>
-                <input v-model.trim='new_email' class='input'
-                       placeholder='E-mail' type='email' />
-              </div>
-              <div class='control'>
-                <button class='button is-primary' @click='saveEmail'>
-                  Save
-                </button>
+            <div class='column'>
+              <div class='field'>
+                <div class='control is-expanded has-icons-left'>
+                  <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
+                  <input v-model.trim='password_current' class='input'
+                         placeholder='Current Password' type='password' />
+                </div>
               </div>
             </div>
-            <!-- Viewing E-mail -->
-            <div v-else @click='editing_email = true' class='clickable'>
-              <b-tooltip label='Click to edit' type='is-dark' animated>
-                <span>{{ user.email }}</span>
-              </b-tooltip>
+          </div>
+          <!-- New Password -->
+          <div class='columns is-mobile'>
+            <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+              New Password
+            </div>
+            <div class='column'>
+              <div class='field'>
+                <div class='control is-expanded has-icons-left'>
+                  <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
+                  <input v-model.trim='password_new' class='input'
+                         placeholder='New Password' type='password' />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
+          <!-- New Password Confirm -->
+          <div class='columns is-mobile'>
+            <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+              Confirm New Password
+            </div>
+            <div class='column'>
+              <div class='field'>
+                <div class='control is-expanded has-icons-left'>
+                  <b-icon icon='lock' size='is-small' class='is-left'></b-icon>
+                  <input v-model.trim='password_new_confirm' class='input'
+                         placeholder='Confirm New Password' type='password' />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Submit New Password -->
+          <div class='has-text-centered'>
+            <button class='button is-primary' :class="{ 'is-loading': submitting_password }"
+                    type='submit'>
+              Update Password
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 
@@ -80,11 +121,14 @@ export default {
   name: 'profile-page',
   data() {
     return {
-      editing_email: false,
-      editing_name: false,
       error: false,
-      new_email: '',
-      new_name: '',
+      email: '',
+      name: '',
+      password_current: '',
+      password_new: '',
+      password_new_confirm: '',
+      submitting_info: false,
+      submitting_password: false,
       user: null,
     };
   },
@@ -94,8 +138,8 @@ export default {
         api.getUserID(id_response.content.id, (user_success, user_response) => {
           if (user_success) {
             this.user = user_response.content;
-            this.new_email = user_response.content.email;
-            this.new_name = user_response.content.name;
+            this.email = user_response.content.email;
+            this.name = user_response.content.name;
           } else {
             this.error = true;
             this.user = -1;
@@ -108,10 +152,11 @@ export default {
     });
   },
   methods: {
-    saveName() {
-      api.updateUser({ id: this.user.id, name: this.new_name }, (success, response) => {
+    updateInfo() {
+      this.submitting_info = true;
+      const info = { id: this.user.id, email: this.email, name: this.name };
+      api.updateUser(info, (success, response) => {
         if (success) {
-          this.editing_name = false;
           this.user = response.content.user;
           cookies.setToken(response.content.token);
           this.$toast.open({
@@ -124,12 +169,19 @@ export default {
             type: 'is-danger',
           });
         }
+        this.submitting_info = false;
       });
     },
-    saveEmail() {
-      api.updateUser({ id: this.user.id, email: this.new_email }, (success, response) => {
+    updatePassword() {
+      this.submitting_password = true;
+      const info = {
+        id: this.user.id,
+        password_current: this.password_current,
+        password_new: this.password_new,
+        password_new_confirm: this.password_new_confirm,
+      };
+      api.updateUserPassword(info, (success, response) => {
         if (success) {
-          this.editing_email = false;
           this.user = response.content.user;
           cookies.setToken(response.content.token);
           this.$toast.open({
@@ -142,8 +194,17 @@ export default {
             type: 'is-danger',
           });
         }
+        this.submitting_password = false;
       });
     },
   },
 };
 </script>
+
+<style>
+
+#change-password-form {
+  margin-top: 1rem;
+}
+
+</style>

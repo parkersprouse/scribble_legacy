@@ -18,6 +18,7 @@ router.get('/users/id/:id', users.getID);
 router.get('/users/email/:email', users.getEmail);
 router.get('/users/name/:name', users.getName);
 router.patch('/users', users.update);
+router.patch('/users/password', users.updatePassword);
 router.delete('/users/:id', users.delete);
 router.post('/users/decode', users.decodeToken);
 

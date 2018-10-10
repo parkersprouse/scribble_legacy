@@ -65,6 +65,8 @@ module.exports = {
       return respond(res, http_bad_request, 'Please make sure your e-mail is valid');
     else if (password !== confirm_password)
       return respond(res, http_bad_request, 'Please make sure the passwords match');
+    else if (password.length < 8)
+      return respond(res, http_bad_request, 'Password must be at least 8 characters');
 
     const salt = bcrypt.genSaltSync();
     const pw_hash = bcrypt.hashSync(password, salt);
