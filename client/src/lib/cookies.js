@@ -8,6 +8,9 @@ export default {
   get: cookies.get,
   set: cookies.set,
   getToken: () => cookies.get('token'),
-  setToken: (token, options) => cookies.set('token', token, options),
   removeToken: () => cookies.remove('token'),
+  setToken: (token, options) => {
+    const default_opts = { maxAge: 60 * 60 * 24 * 7, httpOnly: false };
+    cookies.set('token', token, options || default_opts);
+  },
 };

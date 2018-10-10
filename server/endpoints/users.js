@@ -15,6 +15,7 @@ const {
 const Users = require('../models/users');
 const {
   call,
+  generateJwtPayload,
   respond
 } = require('../utils');
 
@@ -115,17 +116,26 @@ module.exports = {
     // data[1] is the array containing the returned rows
     // data[1][0] is the first game that was returned
     // data[1][0].dataValues is the object containing the values of the returned row
-    const { id, email } = req.body;
-    if (!email || !validator.isEmail(email))
+    const { id, email, name } = req.body;
+
+    console.log(req.body);
+
+    if (email !== undefined && !validator.isEmail(email))
       return respond(res, http_bad_request, 'Your e-mail must be valid');
 
-    const [err, data] = await call(Users.update(req.body, { where: { id }, returning: true }));
+    const [err, data] = await call(Users.update(
+      req.body, { where: { id }, returning: true }
+    ));
     if (err)
       return respond(res, http_server_error, 'Failed to update user');
     if (!data[0])
       return respond(res, http_bad_request, 'No user updated, check provided ID');
 
-    respond(res, http_ok, null, data[1][0].dataValues);
+    const user_data = data[1][0].dataValues;
+
+    const payload = generateJwtPayload(user_data);
+    const token = jwt.sign(payload, config.jwt_secret);
+    respond(res, http_ok, null, { user: user_data, token });
   },
 
   /**

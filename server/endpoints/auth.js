@@ -18,7 +18,7 @@ const {
   generateJwtPayload,
   respond,
   tokenValid
-} = require('../utils.js');
+} = require('../utils');
 
 module.exports = {
 
@@ -78,7 +78,7 @@ module.exports = {
 
     const payload = generateJwtPayload(data);
     const token = jwt.sign(payload, config.jwt_secret);
-    respond(res, http_ok, null, { data, token });
+    respond(res, http_ok, null, token);
   },
 
   /**

@@ -1,3 +1,21 @@
+
+// Variables
+
+%custom-box {
+  padding:       1.25rem;
+  border:        1px solid #a1a1a1;
+  border-radius: 5px;
+}
+
+%main-body-transform {
+  -moz-transition:    all 200ms ease-in;
+  -webkit-transition: all 200ms ease-in;
+  -o-transition:      all 200ms ease-in;
+  transition:         all 200ms ease-in;
+}
+
+// -----------------------------------------------------------------------------
+
 html {
   min-height: 100%;
 }
@@ -8,6 +26,11 @@ html {
 
 body {
   color: #363636;
+}
+
+::selection {
+  background: #896bda;
+  color: #fff;
 }
 
 .required-label {
@@ -21,6 +44,14 @@ body {
 
 .message.is-success .message-body {
   color: #1C9963;
+}
+
+.profile-box {
+  @extend %custom-box;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
@@ -98,13 +129,11 @@ body {
 
 
 // -----------------------------------------------------------------------------
-// Scribble things
+/*#region Scribble things */
 
 .scribble-body {
+  @extend %custom-box;
   white-space:   pre-wrap;
-  padding:       1.25rem;
-  border:        1px solid #a1a1a1;
-  border-radius: 5px;
 }
 
 .scribble-tags {
@@ -189,9 +218,11 @@ body {
   font-weight: bold;
 }
 
+/*#endregion */
+
 
 // -----------------------------------------------------------------------------
-// Tags as links
+/*#region Tags as links */
 
 .tag a,
 .tag a:hover,
@@ -293,17 +324,42 @@ a.tag.is-delete:focus, {
   color: white;
 }
 
+/*#endregion */
+
 
 // -----------------------------------------------------------------------------
-// Sliding Navbar
-// https://codepen.io/marclloyd77/pen/gtypB
+/*#region New toasts */
 
-%main-body-transform {
-  -moz-transition:    all 200ms ease-in;
-  -webkit-transition: all 200ms ease-in;
-  -o-transition:      all 200ms ease-in;
-  transition:         all 200ms ease-in;
+.notices .toast {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-animation-duration: .15s;
+  animation-duration: .15s;
+  margin: -1em 0 .5em 0;
+  text-align: center;
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+  box-shadow: 0 1px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+  border-radius: 5px;
+  padding: .75em 1.5em;
+  pointer-events: auto;
+  opacity: .92;
 }
+
+@media screen and (max-width: 768px) {
+  .notices .toast {
+    margin: .5em 0;
+  }
+}
+
+//#0f9960
+
+/*#endregion */
+
+
+// -----------------------------------------------------------------------------
+/*#region Sliding Navbar */
+// https://codepen.io/marclloyd77/pen/gtypB
 
 .navbar-holder {
   margin-bottom: 5rem;
@@ -389,3 +445,5 @@ a.tag.is-delete:focus, {
   -o-transform:      translate3d(260px, 0, 0);
   transform:         translate3d(260px, 0, 0);
 }
+
+/*#endregion */

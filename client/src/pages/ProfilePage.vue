@@ -12,66 +12,60 @@
     </div>
 
     <div v-else class='container main-content'>
-      <div class='card half-width mobile-fullwidth'>
-        <div class='card-content'>
-          <div class='content'>
-            <!-- Name Field -->
-            <div class='field is-horizontal'>
-              <div class='field-label is-normal'>
-                <label class='label'>Name</label>
+      <div class='profile-box half-width mobile-fullwidth'>
+
+        <div class='columns is-mobile'>
+          <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+            Name
+          </div>
+          <div class='column'>
+            <!-- Editing Name -->
+            <div v-if='editing_name' class='field has-addons'>
+              <div class='control is-expanded'>
+                <input v-model.trim='new_name' class='input'
+                       placeholder='Name' type='text' />
               </div>
-              <div :class="{ 'field-body': editing_name,
-                             'field-label is-normal': !editing_name }">
-                <!-- Editing Name -->
-                <div v-if='editing_name' class='field has-addons'>
-                  <div class='control is-expanded'>
-                    <input v-model.trim='new_name' class='input'
-                           placeholder='Name' type='text' />
-                  </div>
-                  <div class='control'>
-                    <button class='button is-primary' @click='saveName'>
-                      Save
-                    </button>
-                  </div>
-                </div>
-                <!-- Viewing Name -->
-                <div v-else class='field'>
-                  <div class='control'>
-                    <span @click='editing_name = true'>{{ user.name }}</span>
-                  </div>
-                </div>
+              <div class='control'>
+                <button class='button is-primary' @click='saveName'>
+                  Save
+                </button>
               </div>
             </div>
-
-            <!-- E-mail Field -->
-            <div class='field is-horizontal'>
-              <div class='field-label is-normal'>
-                <label class='label'>E-mail</label>
-              </div>
-              <div :class="{ 'field-body': editing_email,
-                             'field-label is-normal': !editing_email }">
-                <!-- Editing E-mail -->
-                <div class='field has-addons' v-if='editing_email'>
-                  <div class='control is-expanded'>
-                    <input v-model.trim='new_email' class='input'
-                           placeholder='E-mail' type='email' />
-                  </div>
-                  <div class='control'>
-                    <button class='button is-primary' @click='saveEmail'>
-                      Save
-                    </button>
-                  </div>
-                </div>
-                <!-- Viewing E-mail -->
-                <div class='field' v-else>
-                  <div class='control'>
-                    <span @click='editing_email = true'>{{ user.email }}</span>
-                  </div>
-                </div>
-              </div>
+            <!-- Viewing Name -->
+            <div v-else @click='editing_name = true' class='clickable'>
+              <b-tooltip label='Click to edit' type='is-dark' animated>
+                <span>{{ user.name }}</span>
+              </b-tooltip>
             </div>
           </div>
         </div>
+
+        <div class='columns is-mobile'>
+          <div class='column is-one-quarter has-text-right has-text-weight-bold'>
+            E-mail
+          </div>
+          <div class='column'>
+            <!-- Editing E-mail -->
+            <div v-if='editing_email' class='field has-addons'>
+              <div class='control is-expanded'>
+                <input v-model.trim='new_email' class='input'
+                       placeholder='E-mail' type='email' />
+              </div>
+              <div class='control'>
+                <button class='button is-primary' @click='saveEmail'>
+                  Save
+                </button>
+              </div>
+            </div>
+            <!-- Viewing E-mail -->
+            <div v-else @click='editing_email = true' class='clickable'>
+              <b-tooltip label='Click to edit' type='is-dark' animated>
+                <span>{{ user.email }}</span>
+              </b-tooltip>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -100,6 +94,8 @@ export default {
         api.getUserID(id_response.content.id, (user_success, user_response) => {
           if (user_success) {
             this.user = user_response.content;
+            this.new_email = user_response.content.email;
+            this.new_name = user_response.content.name;
           } else {
             this.error = true;
             this.user = -1;
@@ -113,10 +109,40 @@ export default {
   },
   methods: {
     saveName() {
-      this.editing_name = false;
+      api.updateUser({ id: this.user.id, name: this.new_name }, (success, response) => {
+        if (success) {
+          this.editing_name = false;
+          this.user = response.content.user;
+          cookies.setToken(response.content.token);
+          this.$toast.open({
+            message: 'Successfully updated',
+            type: 'is-success',
+          });
+        } else {
+          this.$toast.open({
+            message: response.message || 'Something went wrong while updating',
+            type: 'is-danger',
+          });
+        }
+      });
     },
     saveEmail() {
-      this.editing_email = false;
+      api.updateUser({ id: this.user.id, email: this.new_email }, (success, response) => {
+        if (success) {
+          this.editing_email = false;
+          this.user = response.content.user;
+          cookies.setToken(response.content.token);
+          this.$toast.open({
+            message: 'Successfully updated',
+            type: 'is-success',
+          });
+        } else {
+          this.$toast.open({
+            message: response.message || 'Something went wrong while updating',
+            type: 'is-danger',
+          });
+        }
+      });
     },
   },
 };
