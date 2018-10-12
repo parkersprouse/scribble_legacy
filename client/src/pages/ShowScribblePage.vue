@@ -26,7 +26,7 @@
         <div class='subtitle is-6 has-text-centered is-spaced'>
           <time :datetime='scribble.created_at'>{{ date }}</time>
         </div>
-        <div class='scribble-body'>{{ scribble.body }}</div>
+        <div v-html='parsed' class='content scribble-body'></div>
         <div class='scribble-tags' v-if='scribble.tags && scribble.tags.length > 0'>
           <b-taglist>
             <b-tag type='is-dark' v-for='tag in scribble.tags' :key='tag'>
@@ -61,6 +61,7 @@
 import moment from 'moment';
 
 import api from '@/lib/api';
+import constants from '@/lib/constants';
 import EditScribbleModal from '@/components/EditScribbleModal.vue';
 
 export default {
@@ -106,6 +107,9 @@ export default {
   computed: {
     date() {
       return moment(this.scribble.created_at).format('MM/DD/YYYY h:mma');
+    },
+    parsed() {
+      return constants.markdown.render(this.scribble.body);
     },
   },
 };

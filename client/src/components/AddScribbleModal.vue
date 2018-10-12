@@ -29,20 +29,26 @@
         <div class='field'>
           <label class='label'>Content <span class='required-label'>*</span></label>
           <div class='control'>
-            <textarea class='textarea' placeholder='Content' v-model='body'></textarea>
+            <div v-if='show_parsed_body' v-html='parsed' class='content markdown-display'></div>
+            <textarea v-else class='textarea' placeholder='Content' v-model='body' rows='8'>
+            </textarea>
+          </div>
+          <div class='help has-text-centered'>
+            <a href='https://daringfireball.net/projects/markdown/' target='_blank'>Markdown</a>
+            enabled - <a @click='toggleEditor'>{{ show_parsed_body ? 'Edit' : 'View' }}</a>
           </div>
         </div>
         <div class='field'>
           <label class='label'>Tags</label>
-            <b-taginput
-              v-model='tags'
-              :data='all_tags'
-              autocomplete
-              :allow-new='true'
-              icon='tag'
-              type='is-dark'
-              placeholder='Add a tag'>
-            </b-taginput>
+          <b-taginput
+            :allow-new='true'
+            autocomplete
+            :data='all_tags'
+            icon='tag'
+            placeholder='Add a tag'
+            type='is-dark'
+            v-model='tags'>
+          </b-taginput>
         </div>
       </section>
 
@@ -58,18 +64,20 @@
 <script>
 import api from '@/lib/api';
 import cookies from '@/lib/cookies';
+import constants from '@/lib/constants';
 
 export default {
   name: 'add-scribble-modal',
   data() {
     return {
+      all_tags: [],
       body: '',
       error: null,
       owner_id: null,
-      tags: [],
-      all_tags: [],
-      title: '',
+      show_parsed_body: false,
       submitting: false,
+      tags: [],
+      title: '',
     };
   },
   mounted() {
@@ -98,6 +106,14 @@ export default {
           this.submitting = false;
         }
       });
+    },
+    toggleEditor() {
+      this.show_parsed_body = !this.show_parsed_body;
+    },
+  },
+  computed: {
+    parsed() {
+      return constants.markdown.render(this.body);
     },
   },
 };
