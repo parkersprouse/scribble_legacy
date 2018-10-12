@@ -7,7 +7,6 @@ const Scribbles = require('../models/scribbles');
 const { Sequelize } = require('../config/db');
 const { Op } = Sequelize;
 const {
-  db_err_duplicate,
   http_ok,
   http_no_content,
   http_bad_request,
@@ -18,10 +17,6 @@ const {
   respond
 } = require('../utils');
 
-/*
- * search() and paginate() should be refacted to be one method before adding
- * the logic for filtering by tags as well
- */
 module.exports = {
 
   /**
@@ -127,13 +122,12 @@ module.exports = {
    * @returns {void}
    */
   async add(req, res) {
-    let { body, title, tags, owner_id } = req.body;
-    if (!body)
+    if (!req.body.body)
       return respond(res, http_bad_request, 'Your scribble cannot be empty');
-    if (!title)
+    if (!req.body.title)
       title = moment().format('MM/DD/YYYY h:mma');
 
-    const [err, data] = await call(Scribbles.create({ body, title, tags, owner_id }));
+    const [err, data] = await call(Scribbles.create(req.body));
     if (err)
       return respond(res, http_server_error, 'Failed to create scribble');
 
@@ -153,11 +147,10 @@ module.exports = {
     // data[1] is the array containing the returned rows
     // data[1][0] is the first game that was returned
     // data[1][0].dataValues is the object containing the values of the returned row
-    const { body, id } = req.body;
-    if (!body)
+    if (!req.body.body)
       return respond(res, http_bad_request, 'Your scribble cannot be empty');
 
-    const [err, data] = await call(Scribbles.update(req.body, { where: { id }, returning: true }));
+    const [err, data] = await call(Scribbles.update(req.body, { where: { id: req.body.id }, returning: true }));
     if (err)
       return respond(res, http_server_error, 'Failed to update scribble');
     if (!data[0])
@@ -175,8 +168,7 @@ module.exports = {
    * @returns {void}
    */
   async delete(req, res) {
-    const { id } = req.params;
-    const [err, data] = await call(Scribbles.destroy({ where: { id } }));
+    const [err, data] = await call(Scribbles.destroy({ where: { id: req.params.id } }));
     if (err)
       return respond(res, http_server_error, 'Failed to delete scribble');
     if (data < 1)
