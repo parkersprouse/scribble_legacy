@@ -26,16 +26,23 @@
             <input class='input' type='text' placeholder='Title' v-model.trim='title' />
           </div>
         </div>
-        <div class='field'>
+        <div class='field' id='scribble-editor-content'>
           <label class='label'>Content <span class='required-label'>*</span></label>
           <div class='control'>
-            <div v-if='show_parsed_body' v-html='parsed' class='content markdown-display'></div>
-            <textarea v-else class='textarea' placeholder='Content' v-model='body' rows='8'>
-            </textarea>
+            <b-tabs position='is-centered'>
+              <b-tab-item label='Edit'>
+                <textarea class='textarea' placeholder='Content' v-model='body' rows='8'>
+                </textarea>
+              </b-tab-item>
+              <b-tab-item label='Preview'>
+                <div v-html='parsed' class='content markdown-display'></div>
+              </b-tab-item>
+            </b-tabs>
           </div>
           <div class='help has-text-centered'>
-            <a href='https://daringfireball.net/projects/markdown/' target='_blank'>Markdown</a>
-            enabled - <a @click='toggleEditor'>{{ show_parsed_body ? 'Edit' : 'View' }}</a>
+            <a href='https://daringfireball.net/projects/markdown/' target='_blank'>
+              <b-icon pack='fab' icon='markdown' size='is-medium'></b-icon>
+            </a>
           </div>
         </div>
         <div class='field'>
@@ -74,7 +81,6 @@ export default {
       body: '',
       error: null,
       owner_id: null,
-      show_parsed_body: false,
       submitting: false,
       tags: [],
       title: '',
@@ -106,9 +112,6 @@ export default {
           this.submitting = false;
         }
       });
-    },
-    toggleEditor() {
-      this.show_parsed_body = !this.show_parsed_body;
     },
   },
   computed: {

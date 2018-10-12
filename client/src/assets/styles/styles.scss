@@ -151,6 +151,12 @@ body {
 // -----------------------------------------------------------------------------
 /*#region Scribble Stuff */
 
+#scribble-editor-content {
+  .tab-content {
+    padding-bottom: 0;
+  }
+}
+
 .scribble-body {
   @extend %custom-box;
   margin-bottom: 0 !important;
@@ -190,21 +196,6 @@ body {
 .scribble-list .card-header {
   background-color: rgba(248, 248, 248, .9);
 }
-
-// @media screen and (min-width: 769px) {
-//   .scribble-list .card {
-//     height: 100%;
-//   }
-//
-//   .scribble-list .card-content {
-//     height: 50%;
-//   }
-//
-//   .scribble-list .card-header,
-//   .scribble-list .card-footer {
-//     height: 25%;
-//   }
-// }
 
 .add-scribble-modal-footer {
   justify-content: flex-end;
