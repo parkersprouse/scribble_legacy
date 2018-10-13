@@ -58,6 +58,11 @@ body {
   cursor: pointer;
 }
 
+.content ol:first-child,
+.content ul:first-child {
+  margin-top: 0;
+}
+
 @media screen and (max-width: 768px) {
   .mobile-fullwidth {
     width: 100%;
