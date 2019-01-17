@@ -434,6 +434,7 @@ a.tag.is-delete:focus, {
 .main-content {
   @extend %main-body-transform;
 
+  margin-bottom: 5rem;
   min-height: 100px;
 }
 
@@ -442,7 +443,7 @@ a.tag.is-delete:focus, {
 
   display: block;
   left: 10px;
-  position: absolute;
+  position: fixed;
   top: 10px;
   z-index: 39; // the modals are 40
 }
